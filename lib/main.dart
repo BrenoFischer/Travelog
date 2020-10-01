@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travelog/screens/login.dart';
 import 'package:travelog/constants.dart';
+import 'package:travelog/screens/welcome.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,9 +26,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           cursorColor: primaryColor,
           primaryColor: primaryColor,
+          primarySwatch: primaryColors,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: Login(title: 'Travelog'),
+        routes: {"/welcome": (_) => new WelcomeScreen()},
       ),
     );
   }

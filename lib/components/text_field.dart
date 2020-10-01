@@ -28,6 +28,8 @@ class MyTextField extends StatelessWidget {
             borderSide: const BorderSide(color: primaryColor, width: 3),
             borderRadius: BorderRadius.circular(10),
           ),
+          fillColor: Colors.white,
+          filled: true,
           labelText: label,
           labelStyle:
               TextStyle(color: primaryColor, fontSize: 20, letterSpacing: 2),

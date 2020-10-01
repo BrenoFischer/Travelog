@@ -37,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0,
         title: Text("Cadastro"),
@@ -55,12 +56,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
             MyTextField(
               controller: _controllerName,
               size: size,
-              label: "Name",
+              label: "Nome",
             ),
-            MyTextField(
-              controller: _controllerEmail,
-              size: size,
-              label: "Email",
+            Container(
+              margin: EdgeInsets.only(top: 50, bottom: 50),
+              child: MyTextField(
+                controller: _controllerEmail,
+                size: size,
+                label: "Email",
+              ),
             ),
             MyTextField(
               controller: _controllerPass,
@@ -73,7 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Container(
                   margin: const EdgeInsets.only(right: 20.0),
                   child: RoundButton(
-                    text: "Entrar",
+                    text: "Cadastrar",
                     onPress: handleSubmit,
                     style: true,
                     size: 15.0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travelog/components/text_field.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/screens/sign_up.dart';
+import 'package:travelog/screens/welcome.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
@@ -24,6 +25,10 @@ class _LoginState extends State<Login> {
       pass = _controllerPass.text;
       print(login);
       print(pass);
+      Navigator.pushReplacementNamed(
+        context,
+        "/welcome",
+      );
       //if (_controllerLogin.text.isNotEmpty && _controllerPass.text.isNotEmpty) {
       //_controllerLogin.clear();
       //_controllerPass.clear();
