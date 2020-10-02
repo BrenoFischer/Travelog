@@ -6,7 +6,7 @@ class ExploreScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Explore"),
+        title: Text("Explorar Diários Públicos"),
       ),
     );
   }

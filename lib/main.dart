@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           cursorColor: primaryColor,
           primaryColor: primaryColor,
-          primarySwatch: primaryColors,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: Login(title: 'Travelog'),
