@@ -69,39 +69,65 @@ class DiaryCard extends StatelessWidget {
   final String title;
   final Image banner;
 
-  Icon visibilityIcon() {
+  Tooltip visibilityIcon() {
     return public
-        ? Icon(
-            Icons.remove_red_eye,
-            color: Colors.white,
+        ? Tooltip(
+            message: "O diário é público",
+            child: new Icon(
+              Icons.remove_red_eye,
+              color: secondaryColor,
+            ),
           )
-        : Icon(Icons.lock, color: Colors.white);
+        : Tooltip(
+            message: "O diário não é público",
+            child: new Icon(
+              Icons.lock,
+              color: secondaryColor,
+            ),
+          );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget titleSection = Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: secondaryColor,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: EdgeInsets.only(top: 40, left: 15, right: 15),
       child: Card(
-        elevation: 5,
-        color: secondaryColor,
-        child: Container(
-          padding: EdgeInsets.all(50),
-          child: Column(
-            children: [
-              SizedBox(height: 200, child: banner),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  visibilityIcon(),
-                ],
-              ),
-            ],
-          ),
+        elevation: 10,
+        color: Colors.white,
+        child: Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: 200,
+                  child: banner,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    titleSection,
+                  ],
+                ),
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 15, right: 15),
+              child: visibilityIcon(),
+            ),
+          ],
         ),
       ),
     );
