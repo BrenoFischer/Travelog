@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travelog/screens/login.dart';
 import 'package:travelog/constants.dart';
 import 'package:travelog/screens/welcome.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +28,12 @@ class MyApp extends StatelessWidget {
           cursorColor: primaryColor,
           primaryColor: primaryColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          textTheme: TextTheme(
+              headline6: GoogleFonts.sansita(
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          )),
         ),
         home: Login(title: 'Travelog'),
         routes: {"/welcome": (_) => new WelcomeScreen()},

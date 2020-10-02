@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/constants.dart';
+import 'package:travelog/components/my_app_bar.dart';
+import 'package:travelog/screens/reading_diary_first.dart';
 
 class MyDiariesScreen extends StatefulWidget {
   @override
@@ -23,7 +26,7 @@ class _MyDiariesScreenState extends State<MyDiariesScreen> {
         ));
     _diaries[1] = new Diary(
         public: false,
-        title: "America do Sul",
+        title: "América do Sul",
         banner: Image.asset(
           'assets/images/americaSulBanner.jpg',
           width: 600,
@@ -45,10 +48,7 @@ class _MyDiariesScreenState extends State<MyDiariesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Meus Diários"),
-      ),
+      appBar: MyAppBar(title: "Meus Diários"),
       body: ListView.builder(
           itemCount: _diaries.length,
           itemBuilder: (BuildContext ctxt, int index) {
@@ -56,18 +56,20 @@ class _MyDiariesScreenState extends State<MyDiariesScreen> {
             bool public = diary.getVisibility();
             String title = diary.getTitle();
             Image banner = diary.getBanner();
-            return new DiaryCard(public: public, title: title, banner: banner);
+            return new DiaryCard(
+                public: public, title: title, banner: banner, diary: diary);
           }),
     );
   }
 }
 
 class DiaryCard extends StatelessWidget {
-  const DiaryCard({Key key, this.public, this.title, this.banner})
+  const DiaryCard({Key key, this.public, this.title, this.banner, this.diary})
       : super(key: key);
   final bool public;
   final String title;
   final Image banner;
+  final Diary diary;
 
   Tooltip visibilityIcon() {
     return public
@@ -93,41 +95,68 @@ class DiaryCard extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Text(
         title,
-        style: TextStyle(
+        style: GoogleFonts.indieFlower(
           color: secondaryColor,
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
       ),
     );
 
-    return Container(
-      margin: EdgeInsets.only(top: 40, left: 15, right: 15),
-      child: Card(
-        elevation: 10,
-        color: Colors.white,
-        child: Stack(
-          alignment: Alignment.bottomRight,
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: 200,
-                  child: banner,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    titleSection,
-                  ],
-                ),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 15, right: 15),
-              child: visibilityIcon(),
-            ),
-          ],
+    Widget imageSection = Container(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(width: 1.5, color: Colors.black),
+            left: BorderSide(width: 1.5, color: Colors.black),
+            right: BorderSide(width: 1.5, color: Colors.black),
+            bottom: BorderSide(width: 1.5, color: Colors.black),
+          ),
+        ),
+        child: SizedBox(
+          height: 280,
+          child: banner,
+        ),
+      ),
+    );
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return ReadingDiaryFirstScreen(diary: diary);
+            },
+          ),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 40, left: 15, right: 15),
+        child: Card(
+          elevation: 10,
+          color: Colors.white,
+          child: Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              Column(
+                children: [
+                  imageSection,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      titleSection,
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 25, right: 25),
+                child: visibilityIcon(),
+              ),
+            ],
+          ),
         ),
       ),
     );

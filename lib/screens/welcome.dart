@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travelog/constants.dart';
 import 'package:travelog/screens/my_diaries.dart';
-import 'package:travelog/screens/downloads.dart';
+import 'package:travelog/screens/profile.dart';
 import 'package:travelog/screens/explore.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -23,14 +23,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: PageView(
         controller: pageViewController,
         children: [
           MyDiariesScreen(),
           ExploreScreen(),
-          DownloadsScreen(),
+          ProfileScreen(),
         ],
       ),
       bottomNavigationBar: AnimatedBuilder(
@@ -48,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.filter_hdr,
+                  Icons.landscape,
                   size: iconSize,
                 ),
                 title: Text("Diários"),
@@ -62,10 +61,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.file_download,
+                  Icons.person,
                   size: iconSize,
                 ),
-                title: Text("Downloads"),
+                title: Text("Perfil"),
               ),
             ],
           );
