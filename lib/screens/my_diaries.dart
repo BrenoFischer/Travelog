@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/classes/diary.dart';
+import 'package:travelog/classes/page.dart';
+import 'package:travelog/classes/date.dart';
 import 'package:travelog/constants.dart';
 import 'package:travelog/components/my_app_bar.dart';
 import 'package:travelog/screens/reading_diary_first.dart';
+import 'package:travelog/factories/date_factory.dart';
+import 'package:travelog/factories/diary_factory.dart';
+import 'package:travelog/factories/page_factory.dart';
 
 class MyDiariesScreen extends StatefulWidget {
   @override
@@ -11,37 +16,21 @@ class MyDiariesScreen extends StatefulWidget {
 }
 
 class _MyDiariesScreenState extends State<MyDiariesScreen> {
-  List<Diary> _diaries = new List(3);
+  List<Diary> _diaries = new List();
+  List<DiaryPage> _pages = new List();
+  List<Date> _dates = new List();
 
   @override
   void initState() {
-    _diaries[0] = new Diary(
-        public: true,
-        title: "Irlanda",
-        banner: Image.asset(
-          'assets/images/irlandaBanner.jpg',
-          width: 600,
-          height: 240,
-          fit: BoxFit.cover,
-        ));
-    _diaries[1] = new Diary(
-        public: false,
-        title: "América do Sul",
-        banner: Image.asset(
-          'assets/images/americaSulBanner.jpg',
-          width: 600,
-          height: 240,
-          fit: BoxFit.cover,
-        ));
-    _diaries[2] = new Diary(
-        public: true,
-        title: "Foz do Iguaçú",
-        banner: Image.asset(
-          'assets/images/fozBanner.jpg',
-          width: 600,
-          height: 240,
-          fit: BoxFit.cover,
-        ));
+    _dates = DateFactory.createDates();
+    PageFactory pFactory = new PageFactory(
+      dates: _dates,
+    );
+    _pages = pFactory.createPages();
+    DiaryFactory dFactory = new DiaryFactory(
+      pages: _pages,
+    );
+    _diaries = dFactory.createDiaries();
     super.initState();
   }
 
@@ -54,16 +43,27 @@ class _MyDiariesScreenState extends State<MyDiariesScreen> {
         child: Icon(Icons.add),
         onPressed: () {},
       ),
-      body: ListView.builder(
-          itemCount: _diaries.length,
-          itemBuilder: (BuildContext ctxt, int index) {
-            Diary diary = _diaries[index];
-            bool public = diary.getVisibility();
-            String title = diary.getTitle();
-            Image banner = diary.getBanner();
-            return new DiaryCard(
-                public: public, title: title, banner: banner, diary: diary);
-          }),
+      body: _diaries.length == 0
+          ? Center(
+              child: Container(
+                padding: EdgeInsets.all(50),
+                child: Text(
+                  "Ainda não há registros de viagem, comece escrevendo um agora mesmo!",
+                  style:
+                      GoogleFonts.sansita(fontSize: 23, color: secondaryColor),
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: _diaries.length,
+              itemBuilder: (BuildContext ctxt, int index) {
+                Diary diary = _diaries[index];
+                bool public = diary.getVisibility();
+                String title = diary.getTitle();
+                Image banner = diary.getBanner();
+                return new DiaryCard(
+                    public: public, title: title, banner: banner, diary: diary);
+              }),
     );
   }
 }

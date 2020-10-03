@@ -17,6 +17,30 @@ class Date extends StatelessWidget {
   final int finalMonth;
   final int finalYear;
 
+  int getInitialDay() {
+    return initialDay;
+  }
+
+  int getInitialMonth() {
+    return initialMonth;
+  }
+
+  int getInitialYear() {
+    return initialYear;
+  }
+
+  int getFinalDay() {
+    return finalDay;
+  }
+
+  int getFinalMonth() {
+    return finalMonth;
+  }
+
+  int getFinalYear() {
+    return finalYear;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
