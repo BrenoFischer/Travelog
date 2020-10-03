@@ -9,35 +9,43 @@ class DiaryFactory extends StatelessWidget {
   List<Diary> createDiaries() {
     List<Diary> diaries = new List();
 
-    diaries.add(Diary(
-      public: true,
-      title: "Irlanda",
-      banner: Image.asset(
-        'assets/images/irlandaBanner.jpg',
-        width: 600,
-        height: 240,
-        fit: BoxFit.cover,
-      ),
-      pages: pages,
-    ));
-    diaries.add(Diary(
-        public: false,
-        title: "América do Sul",
-        banner: Image.asset(
-          'assets/images/americaSulBanner.jpg',
-          width: 600,
-          height: 240,
-          fit: BoxFit.cover,
-        )));
-    diaries.add(Diary(
+    diaries.add(
+      Diary(
         public: true,
-        title: "Foz do Iguaçú",
+        title: "Irlanda",
         banner: Image.asset(
-          'assets/images/fozBanner.jpg',
+          'assets/images/irlandaBanner.jpg',
           width: 600,
           height: 240,
           fit: BoxFit.cover,
-        )));
+        ),
+        pages: pages,
+      ),
+    );
+    diaries.add(
+      Diary(
+          public: false,
+          title: "América do Sul",
+          banner: Image.asset(
+            'assets/images/americaSulBanner.jpg',
+            width: 600,
+            height: 240,
+            fit: BoxFit.cover,
+          ),
+          pages: pages),
+    );
+    diaries.add(
+      Diary(
+          public: false,
+          title: "Foz do Iguaçú",
+          banner: Image.asset(
+            'assets/images/fozBanner.jpg',
+            width: 600,
+            height: 240,
+            fit: BoxFit.cover,
+          ),
+          pages: pages),
+    );
 
     return diaries;
   }

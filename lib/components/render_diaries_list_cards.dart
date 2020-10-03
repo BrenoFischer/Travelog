@@ -17,7 +17,22 @@ class RenderDiariesListCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return diaries.length == 0
+    List<Diary> _diaries = new List();
+
+    List<Diary> findPublicDiaries() {
+      int i = 0;
+      List<Diary> d = new List();
+      for (; i < diaries.length; i++) {
+        if (diaries[i].getVisibility()) {
+          d.add(diaries[i]);
+        }
+      }
+      return d;
+    }
+
+    _diaries = explore ? findPublicDiaries() : diaries;
+
+    return _diaries.length == 0
         ? Center(
             child: Container(
               padding: EdgeInsets.all(50),
@@ -28,20 +43,18 @@ class RenderDiariesListCards extends StatelessWidget {
             ),
           )
         : ListView.builder(
-            itemCount: diaries.length,
+            itemCount: _diaries.length,
             itemBuilder: (BuildContext ctxt, int index) {
-              Diary diary = diaries[index];
+              Diary diary = _diaries[index];
               String title = diary.getTitle();
               Image banner = diary.getBanner();
-              if (explore && !diary.getVisibility()) {
-              } else {
-                return new DiariesListCard(
-                  title: title,
-                  banner: banner,
-                  diary: diary,
-                  explore: explore,
-                );
-              }
+              print(index);
+              return new DiariesListCard(
+                title: title,
+                banner: banner,
+                diary: diary,
+                explore: explore,
+              );
             },
           );
   }
