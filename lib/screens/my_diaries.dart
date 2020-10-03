@@ -49,6 +49,11 @@ class _MyDiariesScreenState extends State<MyDiariesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(title: "Meus Diários"),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: secondaryColor,
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
       body: ListView.builder(
           itemCount: _diaries.length,
           itemBuilder: (BuildContext ctxt, int index) {
