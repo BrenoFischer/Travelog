@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/constants.dart';
 
 class RoundButton extends StatelessWidget {
-  const RoundButton({
-    Key key,
-    this.onPress,
-    this.text,
-    this.style,
-    this.size,
-    this.width,
-  }) : super(key: key);
+  const RoundButton(
+      {Key key,
+      this.onPress,
+      this.text,
+      this.style,
+      this.size,
+      this.width,
+      this.fontSize})
+      : super(key: key);
 
   final VoidCallback onPress;
   final String text;
   final bool style;
   final double size;
   final double width;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,9 @@ class RoundButton extends StatelessWidget {
         onPressed: onPress,
         child: Text(
           text,
+          style: GoogleFonts.sansita(
+            fontSize: fontSize,
+          ),
         ),
       ),
     );

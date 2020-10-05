@@ -66,6 +66,7 @@ class _LoginState extends State<Login> {
                     style: true,
                     size: 15.0,
                     width: size.width * 0.4,
+                    fontSize: 18,
                   ),
                 ),
                 RoundButton(
@@ -83,6 +84,7 @@ class _LoginState extends State<Login> {
                   style: false,
                   size: 15.0,
                   width: size.width * 0.4,
+                  fontSize: 18,
                 ),
               ],
             ),

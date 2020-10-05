@@ -41,7 +41,7 @@ class DiariesListCard extends StatelessWidget {
         title,
         style: GoogleFonts.caveat(
           color: secondaryColor,
-          fontSize: 40,
+          fontSize: 45,
           fontWeight: FontWeight.bold,
         ),
       ),
