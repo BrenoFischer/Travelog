@@ -5,6 +5,7 @@ if (localPropertiesFile.exists()) {
         localProperties.load(reader)
     }
 }
+
 def localPropertyApiToken = localProperties.getProperty("MAPS_API_KEY")
 def systemEnvApiToken = System.getenv('MAPS_API_KEY')
 def MAPS_API_KEY = localPropertyApiToken != null ? localPropertyApiToken : systemEnvApiToken

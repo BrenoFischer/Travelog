@@ -39,9 +39,9 @@ class DiariesListCard extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Text(
         title,
-        style: GoogleFonts.indieFlower(
+        style: GoogleFonts.caveat(
           color: secondaryColor,
-          fontSize: 30,
+          fontSize: 40,
           fontWeight: FontWeight.bold,
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:travelog/components/text_field.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/screens/sign_up.dart';
-import 'package:travelog/screens/welcome.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);

@@ -48,7 +48,6 @@ class RenderDiariesListCards extends StatelessWidget {
               Diary diary = _diaries[index];
               String title = diary.getTitle();
               Image banner = diary.getBanner();
-              print(index);
               return new DiariesListCard(
                 title: title,
                 banner: banner,

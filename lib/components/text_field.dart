@@ -6,10 +6,10 @@ class MyTextField extends StatelessWidget {
   MyTextField({Key key, this.controller, this.size, this.label, this.icon})
       : super(key: key);
 
-  TextEditingController controller;
-  Size size;
-  String label;
-  Icon icon;
+  final TextEditingController controller;
+  final Size size;
+  final String label;
+  final Icon icon;
 
   @override
   Widget build(BuildContext context) {

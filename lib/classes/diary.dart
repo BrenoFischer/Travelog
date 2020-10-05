@@ -30,6 +30,38 @@ class Diary extends StatelessWidget {
     return pages[pages.length - 1].getDate();
   }
 
+  String formatDiaryFirstPageTitle() {
+    final String place = this.getTitle();
+    final Date firstDate = this.getFirstDate();
+    final Date lastDate = this.getLastDate();
+    final String d1 = firstDate.getInitialDay().toString();
+    final String m1 = firstDate.getInitialMonth().toString();
+    final int yInt = firstDate.getInitialYear();
+    final String y1 =
+        yInt > 2000 ? (yInt - 2000).toString() : (yInt - 1900).toString();
+
+    final String d2 = lastDate.getInitialDay().toString();
+    final String m2 = lastDate.getInitialMonth().toString();
+    final int yInt2 = lastDate.getInitialYear();
+    final String y2 =
+        yInt > 2000 ? (yInt2 - 2000).toString() : (yInt2 - 1900).toString();
+
+    return (place +
+        " - (" +
+        d1 +
+        "/" +
+        m1 +
+        "/" +
+        y1 +
+        " - " +
+        d2 +
+        "/" +
+        m2 +
+        "/" +
+        y2 +
+        ")");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
