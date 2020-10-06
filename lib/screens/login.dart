@@ -55,38 +55,41 @@ class _LoginState extends State<Login> {
                 size: size,
                 label: "Senha",
                 icon: Icon(Icons.lock_outline)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(right: 20.0),
-                  child: RoundButton(
-                    text: "Entrar",
-                    onPress: handleSubmit,
-                    style: true,
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(right: 20.0),
+                    child: RoundButton(
+                      text: "Entrar",
+                      onPress: handleSubmit,
+                      style: true,
+                      size: 15.0,
+                      width: size.width * 0.4,
+                      fontSize: 18,
+                    ),
+                  ),
+                  RoundButton(
+                    text: "Cadastrar",
+                    onPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SignUpScreen();
+                          },
+                        ),
+                      );
+                    },
+                    style: false,
                     size: 15.0,
                     width: size.width * 0.4,
                     fontSize: 18,
                   ),
-                ),
-                RoundButton(
-                  text: "Cadastrar",
-                  onPress: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return SignUpScreen();
-                        },
-                      ),
-                    );
-                  },
-                  style: false,
-                  size: 15.0,
-                  width: size.width * 0.4,
-                  fontSize: 18,
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
