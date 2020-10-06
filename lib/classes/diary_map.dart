@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/classes/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class DiaryMap extends StatelessWidget {
+class DiaryMap {
   DiaryMap({this.diary});
   final Diary diary;
 
@@ -31,10 +30,5 @@ class DiaryMap extends StatelessWidget {
   Location getInitialLocation() {
     locations = diary.getAllLocations();
     return locations[0];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

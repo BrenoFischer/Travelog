@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/date.dart';
 
-class DiaryPage extends StatelessWidget {
-  const DiaryPage({Key key, this.text, this.date, this.locations})
-      : super(key: key);
+class DiaryPage {
+  DiaryPage({Key key, this.text, this.date, this.locations});
   final String text;
   final Date date;
   final List<Location> locations;
@@ -42,10 +41,5 @@ class DiaryPage extends StatelessWidget {
       }
     }
     return locationsNames;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

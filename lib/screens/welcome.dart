@@ -50,21 +50,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Icons.landscape,
                   size: iconSize,
                 ),
-                title: Text("Diários"),
+                label: "Diários",
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.explore,
                   size: iconSize,
                 ),
-                title: Text("Explorar"),
+                label: "Explorar",
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person,
                   size: iconSize,
                 ),
-                title: Text("Perfil"),
+                label: "Perfil",
               ),
             ],
           );

@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class PageMap extends StatelessWidget {
+class PageMap {
   PageMap({this.page});
   final DiaryPage page;
 
@@ -31,10 +30,5 @@ class PageMap extends StatelessWidget {
   Location getInitialLocation() {
     locations = page.getLocations();
     return locations[0];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

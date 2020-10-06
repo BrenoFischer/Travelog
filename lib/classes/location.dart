@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Location extends StatelessWidget {
-  const Location({Key key, this.name, this.lat, this.lng}) : super(key: key);
+class Location {
+  Location({Key key, this.name, this.lat, this.lng});
   final String name;
   final double lat;
   final double lng;
@@ -12,10 +12,5 @@ class Location extends StatelessWidget {
 
   double getLng() {
     return lng;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

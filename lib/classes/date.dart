@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
-
-class Date extends StatelessWidget {
-  const Date(
-      {Key key,
-      this.initialDay,
+class Date {
+  Date(
+      {this.initialDay,
       this.initialMonth,
       this.initialYear,
       this.finalDay,
       this.finalMonth,
-      this.finalYear})
-      : super(key: key);
+      this.finalYear});
   final int initialDay;
   final int initialMonth;
   final int initialYear;
@@ -39,10 +35,5 @@ class Date extends StatelessWidget {
 
   int getFinalYear() {
     return finalYear;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

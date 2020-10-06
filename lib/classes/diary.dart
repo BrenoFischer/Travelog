@@ -3,9 +3,8 @@ import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/date.dart';
 
-class Diary extends StatelessWidget {
-  const Diary({Key key, this.public, this.title, this.banner, this.pages})
-      : super(key: key);
+class Diary {
+  Diary({this.public, this.title, this.banner, this.pages});
   final bool public;
   final String title;
   final List<DiaryPage> pages;
@@ -72,10 +71,5 @@ class Diary extends StatelessWidget {
       locations.addAll(location);
     }
     return locations;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
