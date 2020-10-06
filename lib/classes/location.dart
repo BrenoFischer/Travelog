@@ -6,6 +6,14 @@ class Location extends StatelessWidget {
   final double lat;
   final double lng;
 
+  double getLat() {
+    return lat;
+  }
+
+  double getLng() {
+    return lng;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();

@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:travelog/classes/location.dart';
 
-class Map extends StatelessWidget {
-  const Map({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GoogleMap(
-      zoomControlsEnabled: false,
-      mapType: MapType.terrain,
-      initialCameraPosition: CameraPosition(
-        target: LatLng(37.42796133580664, -122.085749655962),
-        zoom: 14.4746,
-      ),
-    );
+mixin Map {
+  void onMapCreated(GoogleMapController controller, List<Location> locations,
+      Set<Marker> markers) {
+    int k = locations.length;
+    for (int i = 0; i < k; i++) {
+      double lati = locations[i].getLat();
+      double lngi = locations[i].getLng();
+      LatLng position = LatLng(lati, lngi);
+      String markerId = lati.toString() + lngi.toString() + locations[i].name;
+      final Marker marker = new Marker(
+        markerId: new MarkerId(markerId),
+        position: position,
+      );
+      markers.add(marker);
+    }
   }
 }

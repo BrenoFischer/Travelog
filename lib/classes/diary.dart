@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/date.dart';
 
@@ -60,6 +61,17 @@ class Diary extends StatelessWidget {
         "/" +
         y2 +
         ")");
+  }
+
+  List<Location> getAllLocations() {
+    List<Location> locations = new List();
+    List<Location> location = new List();
+    int k = pages.length;
+    for (int i = 0; i < k; i++) {
+      location = pages[i].getLocations();
+      locations.addAll(location);
+    }
+    return locations;
   }
 
   @override

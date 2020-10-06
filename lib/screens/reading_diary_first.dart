@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/classes/diary.dart';
-import 'package:travelog/classes/map.dart';
+import 'package:travelog/components/show_diary_map.dart';
+import 'package:travelog/screens/reading_page.dart';
 import 'package:travelog/components/round_button.dart';
 
 class ReadingDiaryFirstScreen extends StatelessWidget {
@@ -28,14 +29,29 @@ class ReadingDiaryFirstScreen extends StatelessWidget {
             children: [
               SizedBox(
                 height: size.height * 0.88,
-                child: Map(),
+                child: ShowDiaryMap(
+                  diary: diary,
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 40),
                 child: RoundButton(
                   text: buttonText,
                   size: 20,
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ReadingDiaryPageScreen(
+                            diary: diary,
+                            page: diary.pages[0],
+                            pageIndex: 0,
+                          );
+                        },
+                      ),
+                    );
+                  },
                   fontSize: 20,
                   style: true,
                   width: size.width * 0.7,
