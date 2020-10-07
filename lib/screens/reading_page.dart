@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/classes/page.dart';
-import 'package:travelog/components/show_page_map.dart';
 import 'package:travelog/constants.dart';
 
 class ReadingDiaryPageScreen extends StatelessWidget {
@@ -16,9 +15,9 @@ class ReadingDiaryPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    int totalPages = diary.pages.length;
     String date = page.getDateString();
-    String indexP =
-        ((pageIndex + 1).toString() + "/" + diary.pages.length.toString());
+    String indexP = ((pageIndex + 1).toString() + "/" + totalPages.toString());
     List<String> locationsNames = page.getLocationsNames();
 
     void handleNextPage() {
@@ -29,6 +28,39 @@ class ReadingDiaryPageScreen extends StatelessWidget {
           pageIndex: pageIndex + 1,
         );
       }));
+    }
+
+    Widget renderNextPageIcon() {
+      if (pageIndex + 1 == totalPages) {
+        return Container();
+      }
+      return GestureDetector(
+        onTap: handleNextPage,
+        child: Container(
+          margin: EdgeInsets.only(right: 25.0),
+          child: Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.white,
+            size: 35,
+          ),
+        ),
+      );
+    }
+
+    Widget renderPreviousPageIcon() {
+      return Container(
+        margin: EdgeInsets.only(left: 25.0),
+        child: GestureDetector(
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 35,
+          ),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+      );
     }
 
     Widget renderLocationsNames() {
@@ -52,9 +84,7 @@ class ReadingDiaryPageScreen extends StatelessWidget {
     Widget renderMap = Container(
       child: SizedBox(
         height: size.height * 0.5,
-        child: ShowPageMap(
-          page: page,
-        ),
+        child: page.showPageMap(),
       ),
     );
 
@@ -69,6 +99,16 @@ class ReadingDiaryPageScreen extends StatelessWidget {
       ),
     );
 
+    Widget renderText = Container(
+      margin: EdgeInsets.fromLTRB(25, 50, 25, 20),
+      child: Text(
+        page.text,
+        style: GoogleFonts.sansita(
+          fontSize: 20,
+        ),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -79,25 +119,9 @@ class ReadingDiaryPageScreen extends StatelessWidget {
             fontSize: 30,
           ),
         ),
-        leading: GestureDetector(
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-            size: 35,
-          ),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: renderPreviousPageIcon(),
         actions: [
-          GestureDetector(
-            onTap: handleNextPage,
-            child: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-              size: 35,
-            ),
-          ),
+          renderNextPageIcon(),
         ],
       ),
       body: Container(
@@ -106,6 +130,7 @@ class ReadingDiaryPageScreen extends StatelessWidget {
             renderMap,
             renderLocationsNames(),
             renderDate,
+            renderText,
           ],
         ),
       ),

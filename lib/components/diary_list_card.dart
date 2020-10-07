@@ -4,18 +4,16 @@ import '../classes/diary.dart';
 import '../constants.dart';
 import 'package:travelog/screens/reading_diary_first.dart';
 
-class DiariesListCard extends StatelessWidget {
-  const DiariesListCard(
-      {Key key, this.title, this.banner, this.diary, this.explore})
-      : super(key: key);
-  final String title;
-  final Image banner;
+class DiaryListCard extends StatelessWidget {
+  const DiaryListCard({Key key, this.diary, this.explore}) : super(key: key);
   final Diary diary;
   final bool explore;
 
   @override
   Widget build(BuildContext context) {
     final bool public = diary.getVisibility();
+    final String title = diary.title;
+    final Image banner = diary.banner;
 
     Tooltip visibilityIcon() {
       return public

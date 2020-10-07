@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/date.dart';
+import 'package:travelog/components/show_page_map.dart';
 
 class DiaryPage {
-  DiaryPage({Key key, this.text, this.date, this.locations});
+  DiaryPage({
+    Key key,
+    this.text,
+    this.date,
+    this.locations,
+  });
   final String text;
   final Date date;
   final List<Location> locations;
@@ -41,5 +47,9 @@ class DiaryPage {
       }
     }
     return locationsNames;
+  }
+
+  Widget showPageMap() {
+    return ShowPageMap(page: this);
   }
 }

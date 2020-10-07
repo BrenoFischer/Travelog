@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/date.dart';
+import 'package:travelog/components/diary_list_card.dart';
+import 'package:travelog/components/show_diary_map.dart';
 
 class Diary {
   Diary({this.public, this.title, this.banner, this.pages});
@@ -71,5 +73,16 @@ class Diary {
       locations.addAll(location);
     }
     return locations;
+  }
+
+  Widget renderDiaryListCard(bool explore) {
+    return DiaryListCard(
+      diary: this,
+      explore: explore,
+    );
+  }
+
+  Widget showDiaryMap() {
+    return ShowDiaryMap(diary: this);
   }
 }

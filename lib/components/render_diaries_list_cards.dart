@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/constants.dart';
 import 'package:travelog/classes/diary.dart';
-import 'package:travelog/components/diaries_list_cards.dart';
 
 class RenderDiariesListCards extends StatelessWidget {
   const RenderDiariesListCards({
@@ -46,14 +45,7 @@ class RenderDiariesListCards extends StatelessWidget {
             itemCount: _diaries.length,
             itemBuilder: (BuildContext ctxt, int index) {
               Diary diary = _diaries[index];
-              String title = diary.getTitle();
-              Image banner = diary.getBanner();
-              return new DiariesListCard(
-                title: title,
-                banner: banner,
-                diary: diary,
-                explore: explore,
-              );
+              return diary.renderDiaryListCard(explore);
             },
           );
   }

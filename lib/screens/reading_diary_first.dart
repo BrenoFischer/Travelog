@@ -29,9 +29,7 @@ class ReadingDiaryFirstScreen extends StatelessWidget {
             children: [
               SizedBox(
                 height: size.height * 0.88,
-                child: ShowDiaryMap(
-                  diary: diary,
-                ),
+                child: diary.showDiaryMap(),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 40),
