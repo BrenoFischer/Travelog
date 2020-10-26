@@ -31,7 +31,7 @@ class _ShowPageMapState extends State<ShowPageMap> {
       mapController = controller;
 
       setState(() {
-        markers = dMap.getMarkers();
+        dMap.setMarkers(widget.page.getLocations(), markers);
       });
     }
 

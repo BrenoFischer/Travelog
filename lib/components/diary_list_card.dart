@@ -22,6 +22,7 @@ class DiaryListCard extends StatelessWidget {
               child: new Icon(
                 Icons.remove_red_eye,
                 color: secondaryColor,
+                size: 30,
               ),
             )
           : Tooltip(
@@ -29,9 +30,39 @@ class DiaryListCard extends StatelessWidget {
               child: new Icon(
                 Icons.lock,
                 color: secondaryColor,
+                size: 30,
               ),
             );
     }
+
+    Widget emptyContainer = Container(
+      padding: EdgeInsets.all(15),
+    );
+
+    Widget numberOfPages = Tooltip(
+      message: "${diary.getNumberOfPages().toString()} Páginas",
+      child: Container(
+        child: Row(
+          children: [
+            Text(
+              diary.getNumberOfPages().toString(),
+              style: GoogleFonts.sansita(
+                fontSize: 20,
+                color: secondaryColor,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 5),
+              child: Icon(
+                Icons.auto_stories,
+                size: 25,
+                color: secondaryColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
 
     Widget titleSection = Padding(
       padding: const EdgeInsets.all(15.0),
@@ -74,7 +105,7 @@ class DiaryListCard extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(top: 40, left: 15, right: 15),
+        margin: EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 50),
         child: Card(
           elevation: 10,
           color: Colors.white,
@@ -84,17 +115,18 @@ class DiaryListCard extends StatelessWidget {
               Column(
                 children: [
                   imageSection,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      titleSection,
-                    ],
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        numberOfPages,
+                        titleSection,
+                        explore ? emptyContainer : visibilityIcon(),
+                      ],
+                    ),
                   ),
                 ],
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 25, right: 25),
-                child: explore ? null : visibilityIcon(),
               ),
             ],
           ),

@@ -29,7 +29,7 @@ class _ShowDiaryMapState extends State<ShowDiaryMap> {
       mapController = controller;
 
       setState(() {
-        markers = dMap.getMarkers();
+        dMap.setMarkers(widget.diary.getAllLocations(), markers);
       });
     }
 

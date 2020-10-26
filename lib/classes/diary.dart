@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:travelog/classes/diary_map.dart';
 import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/date.dart';
+import 'package:travelog/classes/user.dart';
 import 'package:travelog/components/diary_list_card.dart';
 import 'package:travelog/components/show_diary_map.dart';
 
 class Diary {
-  Diary({this.public, this.title, this.banner, this.pages});
+  Diary({
+    this.public,
+    this.title,
+    this.banner,
+    this.pages,
+    this.user,
+    this.diaryMap,
+  });
   final bool public;
   final String title;
   final List<DiaryPage> pages;
   final Image banner;
+  final User user;
+  final DiaryMap diaryMap;
 
   bool getVisibility() {
     return public;
@@ -84,5 +95,9 @@ class Diary {
 
   Widget showDiaryMap() {
     return ShowDiaryMap(diary: this);
+  }
+
+  int getNumberOfPages() {
+    return pages.length;
   }
 }

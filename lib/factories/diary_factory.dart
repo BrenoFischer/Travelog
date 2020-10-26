@@ -12,9 +12,9 @@ class DiaryFactory extends StatelessWidget {
     ImageBanner irlandaBanner = new ImageBanner(
         width: 600, height: 240, url: "assets/images/irlandaBanner.jpg");
     ImageBanner americaSulBanner = new ImageBanner(
-        width: 600, height: 240, url: "assets/images/irlandaBanner.jpg");
+        width: 600, height: 240, url: "assets/images/americaSulBanner.jpg");
     ImageBanner fozBanner = new ImageBanner(
-        width: 600, height: 240, url: "assets/images/irlandaBanner.jpg");
+        width: 600, height: 240, url: "assets/images/fozBanner.jpg");
 
     Diary createDiary(
         String title, bool public, ImageBanner banner, List<DiaryPage> pages) {
