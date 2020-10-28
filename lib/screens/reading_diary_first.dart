@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/classes/diary.dart';
-import 'package:travelog/components/show_diary_map.dart';
 import 'package:travelog/screens/reading_page.dart';
 import 'package:travelog/components/round_button.dart';
 
