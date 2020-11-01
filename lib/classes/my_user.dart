@@ -1,7 +1,7 @@
 import 'package:travelog/classes/diary.dart';
 
-class User {
-  User({this.name, this.email, this.senha, this.diaries});
+class MyUser {
+  MyUser({this.name, this.email, this.senha, this.diaries});
   final String name;
   final String email;
   final String senha;

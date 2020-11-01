@@ -3,7 +3,7 @@ import 'package:travelog/classes/diary_map.dart';
 import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/date.dart';
-import 'package:travelog/classes/user.dart';
+import 'package:travelog/classes/my_user.dart';
 import 'package:travelog/components/diary_list_card.dart';
 import 'package:travelog/components/show_diary_map.dart';
 
@@ -20,7 +20,7 @@ class Diary {
   final String title;
   final List<DiaryPage> pages;
   final Image banner;
-  final User user;
+  final MyUser user;
   final DiaryMap diaryMap;
 
   bool getVisibility() {

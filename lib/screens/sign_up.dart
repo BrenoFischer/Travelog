@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travelog/components/my_app_bar.dart';
-import 'package:travelog/components/text_field.dart';
+import 'package:travelog/components/text_form_field.dart';
 import 'package:travelog/components/round_button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -56,14 +56,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 margin: EdgeInsets.only(top: 150),
                 child: Column(
                   children: [
-                    MyTextField(
+                    MyTextFormField(
                       controller: _controllerName,
                       size: size,
                       label: "Nome",
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 20),
-                      child: MyTextField(
+                      child: MyTextFormField(
                         controller: _controllerEmail,
                         size: size,
                         label: "Email",
@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 20, bottom: 60),
-                      child: MyTextField(
+                      child: MyTextFormField(
                         controller: _controllerPass,
                         size: size,
                         label: "Senha",
