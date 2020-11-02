@@ -60,6 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _controllerName,
                     size: size,
                     label: "Nome",
+                    type: "name",
                   ),
                   Container(
                     margin: EdgeInsets.only(top: AppStyles.smallPadding),
@@ -67,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       controller: _controllerEmail,
                       size: size,
                       label: "Email",
+                      type: "email",
                     ),
                   ),
                   Container(
@@ -78,6 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       controller: _controllerPass,
                       size: size,
                       label: "Senha",
+                      type: "pass",
                     ),
                   ),
                   Row(

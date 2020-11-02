@@ -77,6 +77,7 @@ class _LoginState extends State<Login> {
             label: "Email",
             icon: Icon(Icons.alternate_email),
             validator: emailValidator,
+            type: 'email',
           ),
           MyTextFormField(
             controller: _controllerPass,
@@ -84,6 +85,7 @@ class _LoginState extends State<Login> {
             label: "Senha",
             icon: Icon(Icons.lock_outline),
             validator: passValidator,
+            type: 'pass',
           ),
         ],
       ),
