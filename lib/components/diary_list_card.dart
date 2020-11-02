@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travelog/ui/size_styling.dart';
 import '../classes/diary.dart';
-import '../constants.dart';
+import '../ui/constants.dart';
 import 'package:travelog/screens/reading_diary_first.dart';
 
 class DiaryListCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class DiaryListCard extends StatelessWidget {
               child: new Icon(
                 Icons.remove_red_eye,
                 color: secondaryColor,
-                size: 30,
+                size: AppStyles.iconCardSize,
               ),
             )
           : Tooltip(
@@ -30,7 +31,7 @@ class DiaryListCard extends StatelessWidget {
               child: new Icon(
                 Icons.lock,
                 color: secondaryColor,
-                size: 30,
+                size: AppStyles.iconCardSize,
               ),
             );
     }
@@ -47,7 +48,7 @@ class DiaryListCard extends StatelessWidget {
             Text(
               diary.getNumberOfPages().toString(),
               style: GoogleFonts.sansita(
-                fontSize: 20,
+                fontSize: AppStyles.iconCardSize - 5,
                 color: secondaryColor,
               ),
             ),
@@ -55,7 +56,7 @@ class DiaryListCard extends StatelessWidget {
               margin: EdgeInsets.only(left: 5),
               child: Icon(
                 Icons.auto_stories,
-                size: 25,
+                size: AppStyles.iconCardSize,
                 color: secondaryColor,
               ),
             ),
@@ -64,14 +65,16 @@ class DiaryListCard extends StatelessWidget {
       ),
     );
 
-    Widget titleSection = Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Text(
-        title,
-        style: GoogleFonts.caveat(
-          color: secondaryColor,
-          fontSize: 45,
-          fontWeight: FontWeight.bold,
+    Widget titleSection = Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Tooltip(
+          message: title,
+          child: Text(
+            title,
+            overflow: TextOverflow.ellipsis,
+            style: AppStyles.titleStyle,
+          ),
         ),
       ),
     );
@@ -88,7 +91,7 @@ class DiaryListCard extends StatelessWidget {
           ),
         ),
         child: SizedBox(
-          height: 280,
+          height: AppStyles.imageCardSize,
           child: banner,
         ),
       ),

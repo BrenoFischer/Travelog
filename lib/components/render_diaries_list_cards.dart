@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travelog/constants.dart';
+import 'package:travelog/ui/constants.dart';
 import 'package:travelog/classes/diary.dart';
 
 class RenderDiariesListCards extends StatelessWidget {

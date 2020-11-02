@@ -43,8 +43,11 @@ class Diary {
     return pages[pages.length - 1].getDate();
   }
 
-  String formatDiaryFirstPageTitle() {
-    final String place = this.getTitle();
+  String getDiaryFirstPageTitle() {
+    return this.getTitle();
+  }
+
+  String formatDiaryFirstPageDate() {
     final Date firstDate = this.getFirstDate();
     final Date lastDate = this.getLastDate();
     final String d1 = firstDate.getInitialDay().toString();
@@ -59,20 +62,7 @@ class Diary {
     final String y2 =
         yInt > 2000 ? (yInt2 - 2000).toString() : (yInt2 - 1900).toString();
 
-    return (place +
-        " - (" +
-        d1 +
-        "/" +
-        m1 +
-        "/" +
-        y1 +
-        " - " +
-        d2 +
-        "/" +
-        m2 +
-        "/" +
-        y2 +
-        ")");
+    return (d1 + "/" + m1 + "/" + y1 + " - " + d2 + "/" + m2 + "/" + y2);
   }
 
   List<Location> getAllLocations() {

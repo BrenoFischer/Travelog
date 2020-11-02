@@ -4,6 +4,7 @@ import 'package:travelog/components/text_form_field.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/screens/sign_up.dart';
 import 'package:provider/provider.dart';
+import 'package:travelog/ui/size_styling.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -54,6 +55,75 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    Widget logoImage = Container(
+      margin: EdgeInsets.only(bottom: AppStyles.mediumPadding),
+      child: Image.asset(
+        'assets/images/logo2.png',
+        scale: 2.5,
+      ),
+    );
+
+    Widget textFieldContainer = Container(
+      margin: EdgeInsets.only(
+        top: AppStyles.smallPadding,
+        bottom: AppStyles.smallPadding,
+      ),
+      child: Column(
+        children: [
+          MyTextFormField(
+            controller: _controllerLogin,
+            size: size,
+            label: "Email",
+            icon: Icon(Icons.alternate_email),
+            validator: emailValidator,
+          ),
+          MyTextFormField(
+            controller: _controllerPass,
+            size: size,
+            label: "Senha",
+            icon: Icon(Icons.lock_outline),
+            validator: passValidator,
+          ),
+        ],
+      ),
+    );
+
+    Widget buttonsContainer = Container(
+      margin: EdgeInsets.only(top: AppStyles.smallPadding),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(right: AppStyles.smallPadding),
+            child: RoundButton(
+              text: "Entrar",
+              onPress: () => handleSubmit(context),
+              style: true,
+              width: AppStyles.buttonWidth,
+              fontSize: AppStyles.buttonText,
+            ),
+          ),
+          RoundButton(
+            text: "Cadastrar",
+            onPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SignUpScreen();
+                  },
+                ),
+              );
+            },
+            style: false,
+            width: AppStyles.buttonWidth,
+            fontSize: AppStyles.buttonText,
+          ),
+        ],
+      ),
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Center(
@@ -62,78 +132,13 @@ class _LoginState extends State<Login> {
             key: _signInFormKey,
             child: Column(
               children: <Widget>[
-                LogoImage(),
-                MyTextFormField(
-                  controller: _controllerLogin,
-                  size: size,
-                  label: "Email",
-                  icon: Icon(Icons.alternate_email),
-                  validator: emailValidator,
-                ),
-                MyTextFormField(
-                  controller: _controllerPass,
-                  size: size,
-                  label: "Senha",
-                  icon: Icon(Icons.lock_outline),
-                  validator: passValidator,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(right: 20.0),
-                        child: RoundButton(
-                          text: "Entrar",
-                          onPress: () => handleSubmit(context),
-                          style: true,
-                          size: 15.0,
-                          width: size.width * 0.4,
-                          fontSize: 18,
-                        ),
-                      ),
-                      RoundButton(
-                        text: "Cadastrar",
-                        onPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return SignUpScreen();
-                              },
-                            ),
-                          );
-                        },
-                        style: false,
-                        size: 15.0,
-                        width: size.width * 0.4,
-                        fontSize: 18,
-                      ),
-                    ],
-                  ),
-                ),
+                logoImage,
+                textFieldContainer,
+                buttonsContainer,
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LogoImage extends StatelessWidget {
-  const LogoImage({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: Image.asset(
-        'assets/images/logo2.png',
-        scale: 2.5,
       ),
     );
   }

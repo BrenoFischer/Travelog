@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travelog/constants.dart';
+import 'package:travelog/ui/constants.dart';
 import 'package:travelog/screens/my_diaries.dart';
 import 'package:travelog/screens/profile.dart';
 import 'package:travelog/screens/explore.dart';

@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travelog/screens/login.dart';
-import 'package:travelog/constants.dart';
+import 'package:travelog/ui/constants.dart';
 import 'package:travelog/screens/welcome.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:travelog/authentication_service.dart';
+import 'package:travelog/ui/size_config.dart';
+import 'package:travelog/ui/size_styling.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,32 +28,38 @@ class MyApp extends StatelessWidget {
               context.read<AuthenticationService>().authStateChanges,
         ),
       ],
-      child: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              SizeConfig().init(constraints, orientation);
+              return GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
 
-          if (!currentFocus.hasPrimaryFocus &&
-              currentFocus.focusedChild != null) {
-            FocusManager.instance.primaryFocus.unfocus();
-          }
+                  if (!currentFocus.hasPrimaryFocus &&
+                      currentFocus.focusedChild != null) {
+                    FocusManager.instance.primaryFocus.unfocus();
+                  }
+                },
+                child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Flutter Demo',
+                  theme: ThemeData(
+                    cursorColor: primaryColor,
+                    primaryColor: primaryColor,
+                    visualDensity: VisualDensity.adaptivePlatformDensity,
+                    textTheme: TextTheme(
+                      headline6: AppStyles.appBarTitle,
+                    ),
+                  ),
+                  home: AuthenticationWrapper(),
+                  routes: {"/welcome": (_) => new WelcomeScreen()},
+                ),
+              );
+            },
+          );
         },
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            cursorColor: primaryColor,
-            primaryColor: primaryColor,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            textTheme: TextTheme(
-                headline6: GoogleFonts.sansita(
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            )),
-          ),
-          home: AuthenticationWrapper(),
-          routes: {"/welcome": (_) => new WelcomeScreen()},
-        ),
       ),
     );
   }

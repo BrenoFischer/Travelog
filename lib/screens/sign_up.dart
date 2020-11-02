@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travelog/components/my_app_bar.dart';
 import 'package:travelog/components/text_form_field.dart';
 import 'package:travelog/components/round_button.dart';
+import 'package:travelog/ui/size_styling.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key key}) : super(key: key);
@@ -42,63 +43,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: MyAppBar(
         title: "Cadastro",
       ),
-      body: ListView(
-        children: [
-          Stack(
-            children: [
-              Container(
-                child: Image.asset(
-                  'assets/images/passaport.png',
-                  scale: 1,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 150),
-                child: Column(
-                  children: [
-                    MyTextFormField(
-                      controller: _controllerName,
-                      size: size,
-                      label: "Nome",
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: MyTextFormField(
-                        controller: _controllerEmail,
-                        size: size,
-                        label: "Email",
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 60),
-                      child: MyTextFormField(
-                        controller: _controllerPass,
-                        size: size,
-                        label: "Senha",
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.only(right: 20.0),
-                          child: RoundButton(
-                            text: "Cadastrar",
-                            onPress: handleSubmit,
-                            style: true,
-                            size: 15.0,
-                            width: size.width * 0.6,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/passaport.png"),
+            fit: BoxFit.cover,
           ),
-        ],
+        ),
+        child: ListView(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: AppStyles.bigPadding),
+              child: Column(
+                children: [
+                  MyTextFormField(
+                    controller: _controllerName,
+                    size: size,
+                    label: "Nome",
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: AppStyles.smallPadding),
+                    child: MyTextFormField(
+                      controller: _controllerEmail,
+                      size: size,
+                      label: "Email",
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: AppStyles.smallPadding,
+                      bottom: AppStyles.mediumPadding,
+                    ),
+                    child: MyTextFormField(
+                      controller: _controllerPass,
+                      size: size,
+                      label: "Senha",
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: AppStyles.smallPadding),
+                        child: RoundButton(
+                          text: "Cadastrar",
+                          onPress: handleSubmit,
+                          style: true,
+                          width: AppStyles.buttonWidth * 1.4,
+                          fontSize: AppStyles.buttonText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

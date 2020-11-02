@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/date.dart';
-import 'package:travelog/constants.dart';
-import 'package:travelog/components/my_app_bar.dart';
+import 'package:travelog/ui/constants.dart';
 import 'package:travelog/factories/date_factory.dart';
 import 'package:travelog/factories/diary_factory.dart';
 import 'package:travelog/factories/page_factory.dart';
 import 'package:travelog/components/render_diaries_list_cards.dart';
+import 'package:travelog/components/my_app_bar.dart';
 
 class MyDiariesScreen extends StatefulWidget {
   @override
@@ -38,7 +38,9 @@ class _MyDiariesScreenState extends State<MyDiariesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: "Meus Diários"),
+      appBar: MyAppBar(
+        title: "Meus diários",
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: secondaryColor,
         child: Icon(Icons.add),

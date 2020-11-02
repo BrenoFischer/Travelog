@@ -38,7 +38,7 @@ class DiaryFactory extends StatelessWidget {
       createDiary("América do Sul", false, americaSulBanner, pages),
     );
     diaries.add(
-      createDiary("Foz do Iguaçú", false, fozBanner, pages),
+      createDiary("Viagem Foz do Iguaçú", false, fozBanner, pages),
     );
 
     return diaries;

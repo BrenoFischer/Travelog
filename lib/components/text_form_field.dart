@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travelog/constants.dart';
+import 'package:travelog/ui/constants.dart';
 
 class MyTextFormField extends StatelessWidget {
   MyTextFormField({

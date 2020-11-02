@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/classes/page.dart';
-import 'package:travelog/constants.dart';
+import 'package:travelog/ui/constants.dart';
 
 class ReadingDiaryPageScreen extends StatelessWidget {
   const ReadingDiaryPageScreen({Key key, this.page, this.diary, this.pageIndex})
