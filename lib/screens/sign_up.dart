@@ -15,23 +15,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _controllerName = TextEditingController();
   final _controllerEmail = TextEditingController();
   final _controllerPass = TextEditingController();
+  final _controllerConfirmPass = TextEditingController();
 
   String name = "";
   String email = "";
   String pass = "";
+  String confirmPass = "";
 
   void handleSubmit() {
     setState(() {
       name = _controllerName.text;
       email = _controllerEmail.text;
       pass = _controllerPass.text;
-      print(name);
-      print(email);
-      print(pass);
-      //if (_controllerLogin.text.isNotEmpty && _controllerPass.text.isNotEmpty) {
-      //_controllerLogin.clear();
-      //_controllerPass.clear();
-      //}
+      confirmPass = _controllerConfirmPass.text;
     });
   }
 
@@ -74,7 +70,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Container(
                     margin: EdgeInsets.only(
                       top: AppStyles.smallPadding,
-                      bottom: AppStyles.mediumPadding,
                     ),
                     child: MyTextFormField(
                       controller: _controllerPass,
@@ -82,6 +77,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       label: "Senha",
                       type: "pass",
                     ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      bottom: AppStyles.smallPadding,
+                      top: AppStyles.smallPadding,
+                    ),
+                    child: MyTextFormField(
+                        controller: _controllerConfirmPass,
+                        size: size,
+                        label: "Confirmar Senha",
+                        type: "pass"),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
