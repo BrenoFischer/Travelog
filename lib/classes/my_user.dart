@@ -7,9 +7,5 @@ class MyUser {
   final String senha;
   final List<Diary> diaries;
 
-  void signUp() {}
-
-  void signIn() {}
-
   void getDiaries() {}
 }

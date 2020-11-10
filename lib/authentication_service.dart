@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -8,20 +7,18 @@ class AuthenticationService {
 
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<String> signIn(
-      {String email, String password, BuildContext context}) async {
+  Future<String> signIn({String email, String password}) async {
     try {
       await _firebaseAuth
           .signInWithEmailAndPassword(
-            email: email,
-            password: password,
-          )
-          .then((value) => {
-                Navigator.pushReplacementNamed(
-                  context,
-                  "/welcome",
-                ),
-              });
+        email: email,
+        password: password,
+      )
+          .then(
+        (value) {
+          print(value.user.uid);
+        },
+      );
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       return e.message;
