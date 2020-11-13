@@ -36,6 +36,9 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
           bottom: widget.size.width * 0.05),
       child: TextFormField(
           decoration: InputDecoration(
+            helperText: ' ',
+            helperStyle: TextStyle(fontSize: 16),
+            errorStyle: TextStyle(fontSize: 16),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),

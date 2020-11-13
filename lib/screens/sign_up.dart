@@ -138,7 +138,7 @@ class SignUpScreen extends GetWidget<AuthController> {
           child: Form(
             key: _signUpFormKey,
             child: Container(
-              margin: EdgeInsets.only(top: AppStyles.bigPadding),
+              margin: EdgeInsets.only(top: AppStyles.mediumPadding),
               child: Column(
                 children: [
                   textFieldsContainer,

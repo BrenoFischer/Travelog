@@ -26,7 +26,7 @@ class AppStyles {
 
   static final double mediumPadding = SizeConfig.textMultiplier * 8;
 
-  static final double smallPadding = SizeConfig.textMultiplier * 2.5;
+  static final double smallPadding = SizeConfig.textMultiplier * 2;
 
   static final double appBarHeight = SizeConfig.textMultiplier * 15;
 
