@@ -1,36 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:travelog/authentication_service.dart';
+import 'package:get/get.dart';
+import 'package:travelog/auth_controller.dart';
 import 'package:travelog/components/text_form_field.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/screens/sign_up.dart';
-import 'package:provider/provider.dart';
 import 'package:travelog/ui/size_styling.dart';
 
-class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
-
-  @override
-  _LoginState createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
+class Login extends GetWidget<AuthController> {
   final GlobalKey<FormState> _signInFormKey = GlobalKey<FormState>();
   final _controllerLogin = TextEditingController();
   final _controllerPass = TextEditingController();
-  String login = "";
-  String pass = "";
 
-  void handleSubmit(BuildContext context) {
-    setState(() {
-      login = _controllerLogin.text;
-      pass = _controllerPass.text;
-      if (_signInFormKey.currentState.validate()) {
-        context.read<AuthenticationService>().signIn(
-              email: _controllerLogin.text,
-              password: _controllerPass.text,
-            );
-      }
-    });
+  void handleSubmit() {
+    //setState(() {
+    //login = _controllerLogin.text;
+    //pass = _controllerPass.text;
+    if (_signInFormKey.currentState.validate()) {
+      controller.login(_controllerLogin.text, _controllerPass.text);
+    }
+    //});
   }
 
   String emailValidator(String value) {
@@ -100,7 +88,7 @@ class _LoginState extends State<Login> {
             margin: EdgeInsets.only(right: AppStyles.smallPadding),
             child: RoundButton(
               text: "Entrar",
-              onPress: () => handleSubmit(context),
+              onPress: () => handleSubmit(),
               style: true,
               width: AppStyles.buttonWidth,
               fontSize: AppStyles.buttonText,
@@ -108,16 +96,7 @@ class _LoginState extends State<Login> {
           ),
           RoundButton(
             text: "Cadastrar",
-            onPress: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return SignUpScreen();
-                  },
-                ),
-              );
-            },
+            onPress: () => Get.to(SignUpScreen()),
             style: false,
             width: AppStyles.buttonWidth,
             fontSize: AppStyles.buttonText,
