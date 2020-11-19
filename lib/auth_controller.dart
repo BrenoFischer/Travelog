@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:travelog/screens/login.dart';
+import 'package:travelog/classes/my_user.dart';
+import 'package:travelog/services/database.dart';
+import 'package:travelog/user_controller.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
   Rx<User> _firebaseUser = Rx<User>();
 
-  String get userEmail => _firebaseUser.value?.email;
+  User get user => _firebaseUser.value;
 
   @override
   void onInit() {
@@ -16,9 +18,17 @@ class AuthController extends GetxController {
 
   void signUp(String email, String password, String name) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      Get.back();
+      UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
+          email: email.trim(), password: password);
+      MyUser _user = MyUser(
+        id: _authResult.user.uid,
+        name: name,
+        email: email,
+      );
+      if (await Database().createNewUser(_user)) {
+        Get.find<UserController>().user = _user;
+        Get.back();
+      }
     } catch (e) {
       Get.snackbar(
         "Erro ao criar usuário",
@@ -30,7 +40,12 @@ class AuthController extends GetxController {
 
   void login(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential _authResult = await _auth.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
+      Get.find<UserController>().user =
+          await Database().getUser(_authResult.user.uid);
     } catch (e) {
       Get.snackbar(
         "Erro ao fazer login",
@@ -42,8 +57,8 @@ class AuthController extends GetxController {
 
   void signOut() async {
     try {
-      _auth.signOut();
-      Get.offAll(Login());
+      await _auth.signOut();
+      Get.find<UserController>().clear();
     } catch (e) {
       Get.snackbar(
         "Erro ao sair",

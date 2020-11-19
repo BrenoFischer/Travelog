@@ -12,13 +12,9 @@ class Login extends GetWidget<AuthController> {
   final _controllerPass = TextEditingController();
 
   void handleSubmit() {
-    //setState(() {
-    //login = _controllerLogin.text;
-    //pass = _controllerPass.text;
     if (_signInFormKey.currentState.validate()) {
       controller.login(_controllerLogin.text, _controllerPass.text);
     }
-    //});
   }
 
   String emailValidator(String value) {
