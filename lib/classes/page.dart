@@ -8,12 +8,14 @@ import 'package:travelog/components/show_page_map.dart';
 class DiaryPage {
   DiaryPage({
     Key key,
+    this.title,
     this.text,
     this.date,
     this.locations,
     this.pageMap,
     this.diary,
   });
+  final String title;
   final String text;
   final Date date;
   final List<Location> locations;

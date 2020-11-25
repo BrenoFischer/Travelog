@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travelog/classes/diary_map.dart';
 import 'package:travelog/classes/location.dart';
@@ -9,6 +10,7 @@ import 'package:travelog/components/show_diary_map.dart';
 
 class Diary {
   Diary({
+    this.diaryId,
     this.public,
     this.title,
     this.banner,
@@ -16,12 +18,20 @@ class Diary {
     this.user,
     this.diaryMap,
   });
-  final bool public;
-  final String title;
-  final List<DiaryPage> pages;
-  final Image banner;
-  final MyUser user;
-  final DiaryMap diaryMap;
+  String diaryId;
+  bool public;
+  String title;
+  List<DiaryPage> pages;
+  String banner;
+  MyUser user;
+  DiaryMap diaryMap;
+
+  Diary.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+    diaryId = documentSnapshot.id;
+    public = documentSnapshot['public'];
+    title = documentSnapshot['title'];
+    banner = documentSnapshot['banner'];
+  }
 
   bool getVisibility() {
     return public;
@@ -32,7 +42,18 @@ class Diary {
   }
 
   Image getBanner() {
-    return banner;
+    Image thisBanner;
+    this.banner[0] == 'a'
+        ? thisBanner = Image.asset(
+            this.banner,
+            fit: BoxFit.fill,
+          )
+        : thisBanner = Image.network(
+            this.banner,
+            fit: BoxFit.fill,
+          );
+
+    return thisBanner;
   }
 
   Date getFirstDate() {

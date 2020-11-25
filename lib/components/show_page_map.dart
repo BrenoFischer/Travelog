@@ -48,7 +48,9 @@ class _ShowPageMapState extends State<ShowPageMap> {
       ),
       markers: markers,
       gestureRecognizers: Set()
-        ..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
+        ..add(
+          Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer()),
+        ),
     );
   }
 }

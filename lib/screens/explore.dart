@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:travelog/components/my_app_bar.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/classes/date.dart';
 import 'package:travelog/classes/page.dart';
-import 'package:travelog/components/render_diaries_list_cards.dart';
+import 'package:travelog/explore_controller.dart';
 import 'package:travelog/factories/date_factory.dart';
 import 'package:travelog/factories/page_factory.dart';
 import 'package:travelog/factories/diary_factory.dart';
+import 'package:travelog/screens/render_diaries_list_new.dart';
 
 class ExploreScreen extends StatefulWidget {
   @override
@@ -38,10 +40,18 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(title: "Explorar Diários"),
-      body: RenderDiariesListCards(
-        diaries: _diaries,
-        emptyMessage: emptyMessage,
-        explore: true,
+      body: GetX<ExploreController>(
+        init: Get.put<ExploreController>(ExploreController()),
+        builder: (ExploreController exploreController) {
+          if (exploreController != null &&
+              exploreController.exploreDiaries != null) {
+            return RenderDiariesListCardsNew(
+              diaries: exploreController.exploreDiaries,
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }

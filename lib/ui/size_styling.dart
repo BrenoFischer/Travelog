@@ -22,6 +22,35 @@ class AppStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static final TextStyle fieldStyle = GoogleFonts.sansita(
+    fontSize: SizeConfig.textMultiplier * 3,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle dateFieldStyle = GoogleFonts.sansita(
+    fontSize: SizeConfig.textMultiplier * 2.3,
+  );
+
+  static InputDecoration textFieldStyle(label) {
+    return InputDecoration(
+      helperText: ' ',
+      helperStyle: TextStyle(fontSize: 16),
+      errorStyle: TextStyle(fontSize: 16),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: primaryColor, width: 3),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      fillColor: Colors.white,
+      filled: true,
+      labelText: label,
+      labelStyle:
+          TextStyle(color: primaryColor, fontSize: 20, letterSpacing: 2),
+    );
+  }
+
   static final double bigPadding = SizeConfig.imageSizeMultiplier * 40;
 
   static final double mediumPadding = SizeConfig.textMultiplier * 8;

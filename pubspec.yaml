@@ -44,6 +44,9 @@ dev_dependencies:
     sdk: flutter
   google_fonts: 
   google_maps_flutter: ^0.5.25+1
+  datetime_picker_formfield: 
+  flutter_google_places: ^0.2.6
+  google_maps_webservice: ^0.0.18
 
 
 # For information on the generic Dart part of this file, see the
@@ -63,6 +66,7 @@ flutter:
     - assets/images/americaSulBanner.jpg
     - assets/images/fozBanner.jpg
     - assets/images/passaport.png
+    - assets/images/defaultBanner.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

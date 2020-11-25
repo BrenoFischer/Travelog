@@ -21,12 +21,12 @@ class DiaryFactory extends StatelessWidget {
       return new Diary(
         public: public,
         title: title,
-        banner: Image.asset(
-          banner.url,
-          width: banner.width,
-          height: banner.height,
-          fit: BoxFit.cover,
-        ),
+        //banner: Image.asset(
+        //banner.url,
+        //width: banner.width,
+        //height: banner.height,
+        //fit: BoxFit.cover,
+        //),
         pages: pages,
       );
     }
