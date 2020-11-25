@@ -14,7 +14,7 @@ class DiaryListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool public = diary.getVisibility();
     final String title = diary.title;
-    final Image banner = diary.banner;
+    //final Image banner = diary.banner;
 
     Tooltip visibilityIcon() {
       return public
@@ -92,7 +92,7 @@ class DiaryListCard extends StatelessWidget {
         ),
         child: SizedBox(
           height: AppStyles.imageCardSize,
-          child: banner,
+          //child: banner,
         ),
       ),
     );
