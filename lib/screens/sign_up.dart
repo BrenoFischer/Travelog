@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelog/auth_controller.dart';
+import 'package:travelog/controllers/auth_controller.dart';
 import 'package:travelog/components/my_app_bar.dart';
 import 'package:travelog/components/text_form_field.dart';
 import 'package:travelog/components/round_button.dart';
@@ -123,7 +123,7 @@ class SignUpScreen extends GetWidget<AuthController> {
     );
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: MyAppBar(
         title: "Cadastro",
       ),
@@ -131,7 +131,8 @@ class SignUpScreen extends GetWidget<AuthController> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/passaport.png"),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
+            alignment: Alignment.topCenter,
           ),
         ),
         child: SingleChildScrollView(

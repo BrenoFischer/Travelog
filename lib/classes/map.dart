@@ -8,7 +8,7 @@ class MyMap {
       double lati = locations[i].getLat();
       double lngi = locations[i].getLng();
       LatLng position = LatLng(lati, lngi);
-      String markerId = lati.toString() + lngi.toString() + locations[i].name;
+      String markerId = lati.toString() + lngi.toString();
       final Marker marker = new Marker(
         markerId: new MarkerId(markerId),
         position: position,

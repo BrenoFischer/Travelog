@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
                 initialBinding: AuthBinding(),
                 title: 'Flutter Demo',
                 theme: ThemeData(
+                  scaffoldBackgroundColor: Colors.grey[100],
                   cursorColor: primaryColor,
                   primaryColor: primaryColor,
                   visualDensity: VisualDensity.adaptivePlatformDensity,

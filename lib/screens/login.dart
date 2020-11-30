@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelog/auth_controller.dart';
+import 'package:travelog/controllers/auth_controller.dart';
 import 'package:travelog/components/text_form_field.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/screens/sign_up.dart';
@@ -102,6 +102,7 @@ class Login extends GetWidget<AuthController> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: Center(
         child: SingleChildScrollView(

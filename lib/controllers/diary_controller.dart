@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:travelog/auth_controller.dart';
+import 'package:travelog/controllers/auth_controller.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/services/database.dart';
 

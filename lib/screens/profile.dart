@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelog/auth_controller.dart';
+import 'package:travelog/controllers/auth_controller.dart';
 import 'package:travelog/components/my_app_bar.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/ui/size_styling.dart';
-import 'package:travelog/user_controller.dart';
+import 'package:travelog/controllers/user_controller.dart';
 
 class ProfileScreen extends GetWidget<AuthController> {
   @override

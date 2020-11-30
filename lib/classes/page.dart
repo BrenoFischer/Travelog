@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/classes/location.dart';
@@ -7,20 +8,44 @@ import 'package:travelog/components/show_page_map.dart';
 
 class DiaryPage {
   DiaryPage({
-    Key key,
+    this.pageId,
     this.title,
     this.text,
     this.date,
+    this.dateEnd,
+    this.dateInit,
     this.locations,
     this.pageMap,
     this.diary,
   });
-  final String title;
-  final String text;
-  final Date date;
-  final List<Location> locations;
-  final PageMap pageMap;
-  final Diary diary;
+  String pageId;
+  String title;
+  Timestamp dateCreated;
+  String text;
+  Date date;
+  String dateEnd;
+  String dateInit;
+  List<Location> locations;
+  PageMap pageMap;
+  Diary diary;
+
+  DiaryPage.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+    pageId = documentSnapshot.id;
+    title = documentSnapshot['title'];
+    text = documentSnapshot['text'];
+    dateCreated = documentSnapshot['dateCreated'];
+    dateEnd = documentSnapshot['dateEnd'];
+    dateInit = documentSnapshot['dateInit'];
+    locations = List();
+  }
+
+  void setLocation(List<Location> locs) {
+    locations = locs;
+  }
+
+  void setDate(Date d) {
+    date = d;
+  }
 
   Date getDate() {
     return date;
@@ -60,4 +85,6 @@ class DiaryPage {
   Widget showPageMap() {
     return ShowPageMap(page: this);
   }
+
+  String getTitle() => this.title;
 }

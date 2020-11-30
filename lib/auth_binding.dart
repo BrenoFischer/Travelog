@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:travelog/auth_controller.dart';
+import 'package:travelog/controllers/auth_controller.dart';
 
 class AuthBinding extends Bindings {
   @override

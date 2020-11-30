@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:travelog/auth_controller.dart';
+import 'package:travelog/controllers/auth_controller.dart';
 import 'package:travelog/screens/welcome.dart';
 import 'package:travelog/screens/login.dart';
 import 'package:travelog/services/database.dart';
-import 'package:travelog/user_controller.dart';
+import 'package:travelog/controllers/user_controller.dart';
 
 class Root extends GetWidget<AuthController> {
   @override

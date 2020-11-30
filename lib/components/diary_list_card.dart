@@ -1,20 +1,46 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:travelog/classes/diary.dart';
+import 'package:travelog/screens/new_page.dart';
+import 'package:travelog/services/database.dart';
+import 'package:travelog/screens/pre_diary_reading_first.dart';
 import 'package:travelog/ui/size_styling.dart';
-import '../classes/diary.dart';
-import '../ui/constants.dart';
-import 'package:travelog/screens/reading_diary_first.dart';
+import 'package:travelog/ui/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class DiaryListCard extends StatelessWidget {
-  const DiaryListCard({Key key, this.diary, this.explore}) : super(key: key);
+class DiaryListCard extends StatefulWidget {
+  DiaryListCard({this.diary, this.uid});
   final Diary diary;
-  final bool explore;
+  final String uid;
+
+  @override
+  _DiaryListCardState createState() => _DiaryListCardState();
+}
+
+class _DiaryListCardState extends State<DiaryListCard> {
+  int _numOfPages;
+  @override
+  void initState() {
+    _fetchPages();
+    super.initState();
+  }
+
+  Future _fetchPages() async {
+    final Future<int> numOfPagesFuture =
+        Database().getNumberOfPages(widget.uid, widget.diary.diaryId);
+    numOfPagesFuture.then((value) {
+      setState(() {
+        _numOfPages = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final bool public = diary.getVisibility();
-    final String title = diary.title;
-    //final Image banner = diary.banner;
+    final bool public = widget.diary.getVisibility();
+    final String title = widget.diary.title;
+    final Image banner = widget.diary.getBanner();
 
     Tooltip visibilityIcon() {
       return public
@@ -35,35 +61,6 @@ class DiaryListCard extends StatelessWidget {
               ),
             );
     }
-
-    Widget emptyContainer = Container(
-      padding: EdgeInsets.all(15),
-    );
-
-    Widget numberOfPages = Tooltip(
-      message: "${diary.getNumberOfPages().toString()} Páginas",
-      child: Container(
-        child: Row(
-          children: [
-            Text(
-              diary.getNumberOfPages().toString(),
-              style: GoogleFonts.sansita(
-                fontSize: AppStyles.iconCardSize - 5,
-                color: secondaryColor,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 5),
-              child: Icon(
-                Icons.auto_stories,
-                size: AppStyles.iconCardSize,
-                color: secondaryColor,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
 
     Widget titleSection = Flexible(
       child: Padding(
@@ -92,21 +89,57 @@ class DiaryListCard extends StatelessWidget {
         ),
         child: SizedBox(
           height: AppStyles.imageCardSize,
-          //child: banner,
+          child: banner,
         ),
       ),
     );
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return ReadingDiaryFirstScreen(diary: diary);
-            },
+
+    Widget numberOfPages() {
+      String _num = _numOfPages == null ? "?" : _numOfPages.toString();
+      return (Tooltip(
+        message: _num + " Páginas",
+        child: Container(
+          child: Row(
+            children: [
+              Text(
+                _num,
+                style: GoogleFonts.sansita(
+                  fontSize: AppStyles.iconCardSize - 5,
+                  color: secondaryColor,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                child: Icon(
+                  Icons.auto_stories,
+                  size: AppStyles.iconCardSize,
+                  color: secondaryColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ));
+    }
+
+    void onTapRoute() {
+      if (_numOfPages == 0) {
+        Get.to(
+          NewPageScreen(
+            diaryId: widget.diary.diaryId,
+            uid: widget.uid,
           ),
         );
-      },
+      } else {
+        Get.to(PreReadingDiaryFirstScreen(
+          uid: widget.uid,
+          diary: widget.diary,
+        ));
+      }
+    }
+
+    return GestureDetector(
+      onTap: onTapRoute,
       child: Container(
         margin: EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 50),
         child: Card(
@@ -123,9 +156,9 @@ class DiaryListCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        numberOfPages,
+                        numberOfPages(),
                         titleSection,
-                        explore ? emptyContainer : visibilityIcon(),
+                        visibilityIcon(),
                       ],
                     ),
                   ),

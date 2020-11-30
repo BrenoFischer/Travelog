@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelog/auth_controller.dart';
-import 'package:travelog/diary_controller.dart';
+import 'package:travelog/controllers/auth_controller.dart';
+import 'package:travelog/components/progress_indicator.dart';
+import 'package:travelog/controllers/diary_controller.dart';
 import 'package:travelog/screens/new_diary.dart';
 import 'package:travelog/ui/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'render_diaries_list_new.dart';
+import '../components/render_diaries_list.dart';
 import 'package:travelog/components/my_app_bar.dart';
 
 class MyDiariesScreen extends GetWidget<AuthController> {
@@ -40,12 +41,18 @@ class MyDiariesScreen extends GetWidget<AuthController> {
         init: Get.put<DiaryController>(DiaryController()),
         builder: (DiaryController diaryController) {
           if (diaryController != null && diaryController.diaries != null) {
-            diaryController.rebind();
-            return RenderDiariesListCardsNew(
-              diaries: diaryController.diaries,
-            );
+            if (diaryController.diaries.length == 0) {
+              return emptyMessageContainer;
+            } else {
+              diaryController.rebind();
+              return RenderDiariesListCards(
+                diaries: diaryController.diaries,
+              );
+            }
           } else {
-            return emptyMessageContainer;
+            return Center(
+              child: MyCircularProgressIndicator(),
+            );
           }
         },
       ),

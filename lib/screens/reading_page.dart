@@ -19,6 +19,7 @@ class ReadingDiaryPageScreen extends StatelessWidget {
     String date = page.getDateString();
     String indexP = ((pageIndex + 1).toString() + "/" + totalPages.toString());
     List<String> locationsNames = page.getLocationsNames();
+    String pageTitle = page.getTitle();
 
     void handleNextPage() {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -59,6 +60,20 @@ class ReadingDiaryPageScreen extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
+        ),
+      );
+    }
+
+    Widget renderPageTitle() {
+      return new Container(
+        margin: EdgeInsets.only(top: 40),
+        alignment: Alignment.center,
+        child: new Text(
+          pageTitle,
+          style: GoogleFonts.lobster(
+            fontSize: 60,
+            color: primaryColor,
+          ),
         ),
       );
     }
@@ -128,6 +143,7 @@ class ReadingDiaryPageScreen extends StatelessWidget {
         child: ListView(
           children: [
             renderMap,
+            renderPageTitle(),
             renderLocationsNames(),
             renderDate,
             renderText,

@@ -31,7 +31,7 @@ class _NewDiaryScreenState extends State<NewDiaryScreen> {
       "assets/images/defaultBanner.png",
       width: 600,
       height: 240,
-      fit: BoxFit.fill,
+      fit: BoxFit.cover,
     );
 
     Future getImage() async {

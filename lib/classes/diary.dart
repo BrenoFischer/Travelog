@@ -5,12 +5,12 @@ import 'package:travelog/classes/location.dart';
 import 'package:travelog/classes/page.dart';
 import 'package:travelog/classes/date.dart';
 import 'package:travelog/classes/my_user.dart';
-import 'package:travelog/components/diary_list_card.dart';
 import 'package:travelog/components/show_diary_map.dart';
 
 class Diary {
   Diary({
     this.diaryId,
+    this.userId,
     this.public,
     this.title,
     this.banner,
@@ -19,6 +19,7 @@ class Diary {
     this.diaryMap,
   });
   String diaryId;
+  String userId;
   bool public;
   String title;
   List<DiaryPage> pages;
@@ -30,7 +31,12 @@ class Diary {
     diaryId = documentSnapshot.id;
     public = documentSnapshot['public'];
     title = documentSnapshot['title'];
+    userId = documentSnapshot['userId'];
     banner = documentSnapshot['banner'];
+  }
+
+  void setPages(List<DiaryPage> pags) {
+    pages = pags;
   }
 
   bool getVisibility() {
@@ -51,6 +57,18 @@ class Diary {
         : thisBanner = Image.network(
             this.banner,
             fit: BoxFit.fill,
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes
+                      : null,
+                ),
+              );
+            },
           );
 
     return thisBanner;
@@ -95,13 +113,6 @@ class Diary {
       locations.addAll(location);
     }
     return locations;
-  }
-
-  Widget renderDiaryListCard(bool explore) {
-    return DiaryListCard(
-      diary: this,
-      explore: explore,
-    );
   }
 
   Widget showDiaryMap() {

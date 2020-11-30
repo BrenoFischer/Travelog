@@ -8,6 +8,8 @@ import 'package:travelog/components/my_app_bar.dart';
 import 'package:travelog/components/my_date_text_field.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/components/text_form_field.dart';
+import 'package:travelog/screens/my_diaries.dart';
+import 'package:travelog/screens/welcome.dart';
 import 'package:travelog/services/database.dart';
 import 'package:travelog/ui/constants.dart';
 import 'package:travelog/ui/size_styling.dart';
@@ -28,14 +30,17 @@ class NewPageScreen extends StatefulWidget {
 
 class _NewPageScreenState extends State<NewPageScreen> {
   List<Marker> markers = [];
+  List<String> names = List();
   LatLng initialLocation = LatLng(40.7128, -74.0060);
   LatLng latlng;
   Completer<GoogleMapController> _mapController = Completer();
   final GlobalKey<FormState> _newPageKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _markerFormKey = GlobalKey<FormState>();
   final _controllerTitle = TextEditingController();
   final _controllerDateInit = TextEditingController();
   final _controllerDateEnd = TextEditingController();
   final _controllerText = TextEditingController();
+  final _controllerName = TextEditingController();
 
   @override
   void initState() {
@@ -63,20 +68,34 @@ class _NewPageScreenState extends State<NewPageScreen> {
       );
     }
 
+    String nameValidator(String value) {
+      if (value.length < 3 || value.length > 15) {
+        return "O nome do local precisa ter entre 3 e 15 caracteres";
+      } else {
+        return null;
+      }
+    }
+
     void _addMarkerOnCenterLocation() {
-      setState(() {
-        markers.add(
-          Marker(
-            markerId: MarkerId(latlng.toString()),
-            position: latlng,
-          ),
-        );
-      });
+      if (_markerFormKey.currentState.validate()) {
+        setState(() {
+          markers.add(
+            Marker(
+              markerId: MarkerId(latlng.toString()),
+              position: latlng,
+            ),
+          );
+          names.add(_controllerName.text);
+        });
+        FocusScope.of(context).unfocus();
+        _controllerName.clear();
+      }
     }
 
     void _clearMarkers() {
       setState(() {
         markers = [];
+        names = [];
       });
     }
 
@@ -99,6 +118,7 @@ class _NewPageScreenState extends State<NewPageScreen> {
         language: "pt_BR",
       );
       if (prediction != null) {
+        print(prediction.description);
         _getLatLngFromPrediction(prediction);
       }
     }
@@ -149,8 +169,9 @@ class _NewPageScreenState extends State<NewPageScreen> {
         _controllerDateInit.text,
         _controllerDateEnd.text,
         markers,
+        names,
       );
-      Get.back();
+      Get.to(WelcomeScreen());
     }
 
     return Scaffold(
@@ -212,7 +233,7 @@ class _NewPageScreenState extends State<NewPageScreen> {
                     _getPredictions();
                   },
                   child: SizedBox(
-                    width: size.width * 0.95,
+                    width: size.width * 0.9,
                     child: Container(
                       margin: EdgeInsets.only(
                         top: AppStyles.smallPadding,
@@ -221,8 +242,8 @@ class _NewPageScreenState extends State<NewPageScreen> {
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            width: 2,
-                            color: primaryColor,
+                            width: 1,
+                            color: Colors.black,
                           ),
                           borderRadius: BorderRadius.all(
                             Radius.circular(10.0),
@@ -233,7 +254,7 @@ class _NewPageScreenState extends State<NewPageScreen> {
                           child: Text(
                             "Pesquisar local...",
                             style: TextStyle(
-                              color: secondaryColor,
+                              color: primaryColor,
                               fontSize: 20,
                               letterSpacing: 2,
                             ),
@@ -243,64 +264,80 @@ class _NewPageScreenState extends State<NewPageScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(bottom: AppStyles.smallPadding),
-                  height: 400,
-                  width: size.width,
-                  child: Stack(
-                    alignment: Alignment.bottomLeft,
+                Form(
+                  key: _markerFormKey,
+                  child: Column(
                     children: [
-                      GoogleMap(
-                        onCameraMove: (data) {
-                          setState(() {
-                            latlng = data.target;
-                          });
-                        },
-                        onMapCreated: (GoogleMapController controller) {
-                          _mapController.complete(controller);
-                        },
-                        markers: Set.from(markers),
-                        initialCameraPosition: CameraPosition(
-                          target: initialLocation,
-                          zoom: 12.0,
-                        ),
-                        gestureRecognizers: Set()
-                          ..add(
-                            Factory<EagerGestureRecognizer>(
-                                () => EagerGestureRecognizer()),
-                          ),
-                      ),
                       Container(
-                        margin: EdgeInsets.only(
-                          left: AppStyles.smallPadding,
-                          bottom: AppStyles.smallPadding,
-                        ),
-                        child: Row(
+                        margin: EdgeInsets.only(bottom: AppStyles.smallPadding),
+                        height: 400,
+                        width: size.width,
+                        child: Stack(
+                          alignment: Alignment.bottomLeft,
                           children: [
-                            FloatingActionButton(
-                              heroTag: "btn1",
-                              onPressed: _clearMarkers,
-                              backgroundColor: secondaryColor,
-                              child: Icon(
-                                Icons.cleaning_services_outlined,
-                                color: Colors.white,
+                            GoogleMap(
+                              onCameraMove: (data) {
+                                setState(() {
+                                  latlng = data.target;
+                                });
+                              },
+                              onMapCreated: (GoogleMapController controller) {
+                                _mapController.complete(controller);
+                              },
+                              markers: Set.from(markers),
+                              initialCameraPosition: CameraPosition(
+                                target: initialLocation,
+                                zoom: 12.0,
                               ),
+                              gestureRecognizers: Set()
+                                ..add(
+                                  Factory<EagerGestureRecognizer>(
+                                      () => EagerGestureRecognizer()),
+                                ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 15),
-                              child: FloatingActionButton(
-                                heroTag: "btn2",
-                                onPressed: _addMarkerOnCenterLocation,
-                                backgroundColor: primaryColor,
-                                child: Icon(
-                                  Icons.add_location_alt_outlined,
-                                  size: 30,
-                                ),
+                              margin: EdgeInsets.only(
+                                left: AppStyles.smallPadding,
+                                bottom: AppStyles.smallPadding,
+                              ),
+                              child: Row(
+                                children: [
+                                  FloatingActionButton(
+                                    heroTag: "btn1",
+                                    onPressed: _clearMarkers,
+                                    backgroundColor: secondaryColor,
+                                    child: Icon(
+                                      Icons.cleaning_services_outlined,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: FloatingActionButton(
+                                      heroTag: "btn2",
+                                      onPressed: _addMarkerOnCenterLocation,
+                                      backgroundColor: primaryColor,
+                                      child: Icon(
+                                        Icons.add_location_alt_outlined,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      )
+                      ),
+                      Container(
+                        child: MyTextFormField(
+                          controller: _controllerName,
+                          size: size,
+                          type: 'title',
+                          label: "Nome do local",
+                          validator: nameValidator,
+                        ),
+                      ),
                     ],
                   ),
                 ),
