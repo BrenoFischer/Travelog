@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelog/classes/my_user.dart';
 import 'package:travelog/controllers/auth_controller.dart';
 import 'package:travelog/classes/date.dart';
 import 'package:travelog/classes/diary.dart';
@@ -12,6 +13,8 @@ import 'package:travelog/components/round_button.dart';
 import 'package:travelog/screens/new_page.dart';
 import 'package:travelog/screens/reading_diary_first.dart';
 import 'package:travelog/services/database.dart';
+import 'package:travelog/ui/constants.dart';
+import 'package:travelog/ui/diary_page_paint.dart';
 import 'package:travelog/ui/size_styling.dart';
 
 class PreReadingDiaryFirstScreen extends StatefulWidget {
@@ -36,9 +39,6 @@ class _TesteState extends State<PreReadingDiaryFirstScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
-        title: widget.diary.title,
-      ),
       body: Container(
         child: FutureBuilder(
             future: _futurePages,
@@ -86,8 +86,24 @@ class _TesteState extends State<PreReadingDiaryFirstScreen> {
                           p.setLocation(locations);
                         });
                         widget.diary.setPages(_pages);
-                        return PreDiaryLayout(
-                          diary: widget.diary,
+                        Future<MyUser> futureUser =
+                            Database().getUser(widget.uid);
+
+                        return FutureBuilder(
+                          future: futureUser,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<MyUser> user) {
+                            if (user.hasData) {
+                              return PreDiaryLayout(
+                                diary: widget.diary,
+                                user: user.data,
+                              );
+                            } else {
+                              return Center(
+                                child: MyCircularProgressIndicator(),
+                              );
+                            }
+                          },
                         );
                       } else {
                         return Center(
@@ -109,11 +125,15 @@ class _TesteState extends State<PreReadingDiaryFirstScreen> {
 }
 
 class PreDiaryLayout extends GetWidget<AuthController> {
-  PreDiaryLayout({this.diary});
+  PreDiaryLayout({this.diary, this.user});
   final Diary diary;
+  final MyUser user;
 
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+
     Widget renderNewPageButton() {
       return controller.user.uid == diary.userId
           ? Container(
@@ -134,23 +154,91 @@ class PreDiaryLayout extends GetWidget<AuthController> {
           : Container();
     }
 
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          RoundButton(
-              text: "Abrir diário",
-              width: MediaQuery.of(context).size.width * 0.7,
-              fontSize: 20,
-              style: true,
-              onPress: () {
-                Get.to(ReadingDiaryFirstScreen(diary: diary));
-              }),
-          renderNewPageButton(),
-        ],
-      ),
+    Widget renderOpenDiaryButton = RoundButton(
+        text: "Abrir diário",
+        width: MediaQuery.of(context).size.width * 0.7,
+        fontSize: 20,
+        style: true,
+        onPress: () {
+          Get.to(ReadingDiaryFirstScreen(diary: diary));
+        });
+
+    return Stack(
+      children: [
+        Container(
+          color: diaryColor,
+          width: w,
+          height: h - 10,
+        ),
+        DiaryPagePaint(w: w - 10, h: h - 12),
+        DiaryPagePaint(w: w - 17, h: h - 14),
+        DiaryPagePaint(w: w - 24, h: h - 16),
+        DiaryPagePaint(w: w - 31, h: h - 18),
+        DiaryPagePaint(w: w - 38, h: h - 20),
+        Container(
+          width: w - 45,
+          height: h - 22,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/case.jpg'),
+              fit: BoxFit.fill,
+            ),
+            border: Border(
+              right: BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
+              bottom: BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
+            ),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                top: 50,
+                left: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 20,
+                top: 250,
+                child: Text(
+                  diary.title,
+                  style: AppStyles.bigTitleStyle,
+                ),
+              ),
+              Positioned(
+                left: 20,
+                top: 310,
+                child: Text(
+                  "Por " + user.name,
+                  style: AppStyles.subtitle,
+                ),
+              ),
+              Positioned(
+                left: 30,
+                top: h - 230,
+                child: renderNewPageButton(),
+              ),
+              Positioned(
+                left: 30,
+                top: h - 100,
+                child: renderOpenDiaryButton,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

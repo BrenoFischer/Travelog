@@ -67,6 +67,7 @@ flutter:
     - assets/images/fozBanner.jpg
     - assets/images/passaport.png
     - assets/images/defaultBanner.png
+    - assets/images/case.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -16,6 +16,18 @@ class AppStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static final TextStyle bigTitleStyle = GoogleFonts.caveat(
+    color: Colors.white,
+    fontSize: AppStyles.titleCardSize * 1.3,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle subtitle = GoogleFonts.caveat(
+    color: secondaryColor,
+    fontSize: AppStyles.titleCardSize - 5,
+    fontWeight: FontWeight.w200,
+  );
+
   static final TextStyle titleStyleAlternativeColor = GoogleFonts.caveat(
     color: primaryColor,
     fontSize: AppStyles.titleCardSize,
