@@ -208,4 +208,19 @@ class Database {
     }
     return usersKey;
   }
+
+  Future<void> changeDiaryVisibility(
+      String uid, String diaryId, bool newVisibility) async {
+    try {
+      _firestore
+          .collection("users")
+          .doc(uid)
+          .collection("diaries")
+          .doc(diaryId)
+          .update({"public": newVisibility});
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 }

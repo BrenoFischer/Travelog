@@ -44,10 +44,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     List<Diary> _allDiaries = new List();
                     diaries.data.forEach((d) {
                       d.forEach((d2) {
-                        _allDiaries.add(d2);
+                        if (d2.public) {
+                          _allDiaries.add(d2);
+                        }
                       });
                     });
                     return RenderDiariesListCards(
+                      explore: true,
                       diaries: _allDiaries,
                     );
                   } else {

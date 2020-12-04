@@ -5,8 +5,8 @@ import 'package:travelog/classes/diary.dart';
 import 'package:travelog/components/diary_list_card.dart';
 
 class RenderDiariesListCards extends GetWidget<AuthController> {
-  RenderDiariesListCards({this.diaries});
-
+  RenderDiariesListCards({this.diaries, this.explore});
+  final bool explore;
   final List<Diary> diaries;
 
   @override
@@ -15,6 +15,7 @@ class RenderDiariesListCards extends GetWidget<AuthController> {
         itemCount: diaries.length,
         itemBuilder: (_, index) {
           return DiaryListCard(
+            explore: explore,
             diary: diaries[index],
             uid: diaries[index].userId,
           );

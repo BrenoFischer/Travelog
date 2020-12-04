@@ -10,7 +10,8 @@ import 'package:travelog/ui/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DiaryListCard extends StatefulWidget {
-  DiaryListCard({this.diary, this.uid});
+  DiaryListCard({this.diary, this.uid, this.explore});
+  final bool explore;
   final Diary diary;
   final String uid;
 
@@ -42,18 +43,32 @@ class _DiaryListCardState extends State<DiaryListCard> {
     final String title = widget.diary.title;
     final Image banner = widget.diary.getBanner();
 
-    Tooltip visibilityIcon() {
+    void onTapVisibilityIcon() {
+      Get.snackbar(
+        "Visibilidade alterada",
+        "A visibilidade do seu diário foi alterada. O ícone pode demorar a atualizar.",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      Database()
+          .changeDiaryVisibility(widget.uid, widget.diary.diaryId, !public);
+      setState(() {});
+    }
+
+    Widget visibilityIcon() {
+      if (widget.explore) {
+        return Container();
+      }
       return public
-          ? Tooltip(
-              message: "O diário é público",
+          ? GestureDetector(
+              onTap: onTapVisibilityIcon,
               child: new Icon(
                 Icons.remove_red_eye,
                 color: secondaryColor,
                 size: AppStyles.iconCardSize,
               ),
             )
-          : Tooltip(
-              message: "O diário não é público",
+          : GestureDetector(
+              onTap: onTapVisibilityIcon,
               child: new Icon(
                 Icons.lock,
                 color: secondaryColor,

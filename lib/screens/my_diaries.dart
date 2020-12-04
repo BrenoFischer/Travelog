@@ -46,6 +46,7 @@ class MyDiariesScreen extends GetWidget<AuthController> {
             } else {
               diaryController.rebind();
               return RenderDiariesListCards(
+                explore: false,
                 diaries: diaryController.diaries,
               );
             }
