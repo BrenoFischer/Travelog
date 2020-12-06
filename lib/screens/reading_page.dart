@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/classes/page.dart';
+import 'package:travelog/screens/reading_diary_first.dart';
 import 'package:travelog/ui/constants.dart';
 
 class ReadingDiaryPageScreen extends StatelessWidget {
@@ -31,14 +33,53 @@ class ReadingDiaryPageScreen extends StatelessWidget {
       }));
     }
 
+    void handlePreviousPage() {
+      pageIndex == 0
+          ? Get.to(ReadingDiaryFirstScreen(
+              diary: diary,
+            ))
+          : Get.to(ReadingDiaryPageScreen(
+              diary: diary,
+              page: diary.pages[pageIndex - 1],
+              pageIndex: pageIndex - 1,
+            ));
+    }
+
+    void handleGoToLastPage() {
+      int i = diary.pages.length - 1;
+      //Get.to(ReadingDiaryPageScreen(
+      //diary: diary,
+      //page: diary.pages[i],
+      //pageIndex: i,
+      //));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ReadingDiaryPageScreen(
+            diary: diary,
+            page: diary.pages[i],
+            pageIndex: i,
+          ),
+        ),
+      );
+    }
+
+    void handleGoToFirstPage() {
+      Get.to(ReadingDiaryPageScreen(
+        diary: diary,
+        page: diary.pages[0],
+        pageIndex: 0,
+      ));
+    }
+
     Widget renderNextPageIcon() {
       if (pageIndex + 1 == totalPages) {
-        return Container();
+        return const SizedBox(width: 42);
       }
       return GestureDetector(
         onTap: handleNextPage,
         child: Container(
-          margin: EdgeInsets.only(right: 25.0),
+          margin: EdgeInsets.only(right: 10.0),
           child: Icon(
             Icons.arrow_forward_ios,
             color: Colors.white,
@@ -48,9 +89,28 @@ class ReadingDiaryPageScreen extends StatelessWidget {
       );
     }
 
+    Widget renderGoToLastPageIcon() {
+      if (pageIndex + 1 == totalPages) {
+        return const SizedBox(width: 42);
+      }
+      return Container(
+        margin: EdgeInsets.only(right: 10),
+        child: GestureDetector(
+          child: Icon(
+            Icons.fast_forward_outlined,
+            color: Colors.white,
+            size: 35,
+          ),
+          onTap: () {
+            handleGoToLastPage();
+          },
+        ),
+      );
+    }
+
     Widget renderPreviousPageIcon() {
       return Container(
-        margin: EdgeInsets.only(left: 25.0),
+        margin: EdgeInsets.only(left: 10),
         child: GestureDetector(
           child: Icon(
             Icons.arrow_back_ios,
@@ -58,7 +118,26 @@ class ReadingDiaryPageScreen extends StatelessWidget {
             size: 35,
           ),
           onTap: () {
-            Navigator.pop(context);
+            handlePreviousPage();
+          },
+        ),
+      );
+    }
+
+    Widget renderGoToFirstPageIcon() {
+      if (pageIndex == 0) {
+        return const SizedBox(width: 42);
+      }
+      return Container(
+        margin: EdgeInsets.only(left: 10),
+        child: GestureDetector(
+          child: Icon(
+            Icons.fast_rewind_outlined,
+            color: Colors.white,
+            size: 35,
+          ),
+          onTap: () {
+            handleGoToFirstPage();
           },
         ),
       );
@@ -127,16 +206,30 @@ class ReadingDiaryPageScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          indexP,
-          style: GoogleFonts.sansita(
-            color: Colors.white,
-            fontSize: 30,
-          ),
+        titleSpacing: 0.0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            renderGoToFirstPageIcon(),
+            renderPreviousPageIcon(),
+            Expanded(
+              child: Center(
+                child: Text(
+                  indexP,
+                  style: GoogleFonts.sansita(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        leading: renderPreviousPageIcon(),
+        automaticallyImplyLeading: false,
         actions: [
           renderNextPageIcon(),
+          renderGoToLastPageIcon(),
         ],
       ),
       body: Container(
