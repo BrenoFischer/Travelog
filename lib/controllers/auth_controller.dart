@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:travelog/classes/my_user.dart';
+import 'package:travelog/components/my_snackbar.dart';
 import 'package:travelog/services/database.dart';
 import 'package:travelog/controllers/user_controller.dart';
 
@@ -30,11 +31,7 @@ class AuthController extends GetxController {
         Get.back();
       }
     } catch (e) {
-      Get.snackbar(
-        "Erro ao criar usuário",
-        e.message,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      MySnackbar.callSnackbar("Erro ao criar usuário", e.message, "bottom");
     }
   }
 
@@ -47,10 +44,10 @@ class AuthController extends GetxController {
       Get.find<UserController>().user =
           await Database().getUser(_authResult.user.uid);
     } catch (e) {
-      Get.snackbar(
+      MySnackbar.callSnackbar(
         "Erro ao fazer login",
         e.message,
-        snackPosition: SnackPosition.TOP,
+        'top',
       );
     }
   }
@@ -60,10 +57,10 @@ class AuthController extends GetxController {
       await _auth.signOut();
       Get.find<UserController>().clear();
     } catch (e) {
-      Get.snackbar(
+      MySnackbar.callSnackbar(
         "Erro ao sair",
         e.message,
-        snackPosition: SnackPosition.BOTTOM,
+        "bottom",
       );
     }
   }

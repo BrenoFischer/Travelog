@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:travelog/components/my_app_bar.dart';
 import 'package:travelog/components/my_date_text_field.dart';
+import 'package:travelog/components/my_snackbar.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/components/text_form_field.dart';
 import 'package:travelog/screens/my_diaries.dart';
@@ -134,31 +135,23 @@ class _NewPageScreenState extends State<NewPageScreen> {
     void handleSubmit() async {
       if (_controllerDateInit.text.length == 0 ||
           _controllerDateEnd.text.length == 0) {
-        Get.snackbar(
-          "Erro ao marcar datas",
-          "É necessário marcar data de início e fim",
-        );
+        MySnackbar.callSnackbar("Erro ao marcar datas",
+            "É necessário marcar data de início e fim", "top");
         return;
       }
       if (markers.length == 0) {
-        Get.snackbar(
-          "Erro ao marcar locais",
-          "É necessário marcar pelo menos 1 local no mapa",
-        );
+        MySnackbar.callSnackbar("Erro ao marcar locais",
+            "É necessário marcar pelo menos 1 local no mapa", "top");
         return;
       }
       if (_controllerText.text.length == 0) {
-        Get.snackbar(
-          "Erro ao capturar texto",
-          "É necessário escrever um pouco sobre suas experiências",
-        );
+        MySnackbar.callSnackbar("Erro ao capturar texto",
+            "É necessário escrever um pouco sobre suas experiências", "top");
         return;
       }
       if (_controllerTitle.text.length == 0) {
-        Get.snackbar(
-          "Erro ao capturar título",
-          "É necessário escrever um título",
-        );
+        MySnackbar.callSnackbar("Erro ao capturar título",
+            "É necessário escrever um título", "top");
         return;
       }
       await Database().createPage(

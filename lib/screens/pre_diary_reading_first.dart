@@ -154,14 +154,18 @@ class PreDiaryLayout extends GetWidget<AuthController> {
           : Container();
     }
 
-    Widget renderOpenDiaryButton = RoundButton(
-        text: "Abrir diário",
-        width: MediaQuery.of(context).size.width * 0.7,
-        fontSize: 20,
-        style: true,
-        onPress: () {
-          Get.to(ReadingDiaryFirstScreen(diary: diary));
-        });
+    Widget renderOpenDiaryButton() {
+      return diary.pages.length == 0
+          ? Container()
+          : RoundButton(
+              text: "Abrir diário",
+              width: MediaQuery.of(context).size.width * 0.7,
+              fontSize: 20,
+              style: true,
+              onPress: () {
+                Get.to(ReadingDiaryFirstScreen(diary: diary));
+              });
+    }
 
     return Stack(
       children: [
@@ -233,7 +237,7 @@ class PreDiaryLayout extends GetWidget<AuthController> {
               Positioned(
                 left: 30,
                 top: h - 100,
-                child: renderOpenDiaryButton,
+                child: renderOpenDiaryButton(),
               ),
             ],
           ),
