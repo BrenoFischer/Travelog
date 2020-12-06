@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelog/classes/diary.dart';
+import 'package:travelog/classes/page.dart';
+import 'package:travelog/components/my_snackbar.dart';
+import 'package:travelog/components/progress_indicator.dart';
 import 'package:travelog/screens/new_page.dart';
 import 'package:travelog/services/database.dart';
 import 'package:travelog/screens/pre_diary_reading_first.dart';
@@ -21,20 +24,12 @@ class DiaryListCard extends StatefulWidget {
 
 class _DiaryListCardState extends State<DiaryListCard> {
   int _numOfPages;
+  Future<int> _pagesFuture;
   @override
   void initState() {
-    _fetchPages();
-    super.initState();
-  }
-
-  Future _fetchPages() async {
-    final Future<int> numOfPagesFuture =
+    _pagesFuture =
         Database().getNumberOfPages(widget.uid, widget.diary.diaryId);
-    numOfPagesFuture.then((value) {
-      setState(() {
-        _numOfPages = value;
-      });
-    });
+    super.initState();
   }
 
   @override
@@ -44,14 +39,12 @@ class _DiaryListCardState extends State<DiaryListCard> {
     final Image banner = widget.diary.getBanner();
 
     void onTapVisibilityIcon() {
-      Get.snackbar(
-        "Visibilidade alterada",
-        "A visibilidade do seu diário foi alterada. O ícone pode demorar a atualizar.",
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      MySnackbar.callSnackbar(
+          "Visibilidade alterada",
+          "A visibilidade do seu diário foi alterada. O ícone pode demorar a atualizar.",
+          "bottom");
       Database()
           .changeDiaryVisibility(widget.uid, widget.diary.diaryId, !public);
-      setState(() {});
     }
 
     Widget visibilityIcon() {
@@ -109,15 +102,14 @@ class _DiaryListCardState extends State<DiaryListCard> {
       ),
     );
 
-    Widget numberOfPages() {
-      String _num = _numOfPages == null ? "?" : _numOfPages.toString();
+    Widget numberOfPagesContainer(numPages) {
       return (Tooltip(
-        message: _num + " Páginas",
+        message: numPages + " Páginas",
         child: Container(
           child: Row(
             children: [
               Text(
-                _num,
+                numPages,
                 style: GoogleFonts.sansita(
                   fontSize: AppStyles.iconCardSize - 5,
                   color: secondaryColor,
@@ -153,17 +145,49 @@ class _DiaryListCardState extends State<DiaryListCard> {
       }
     }
 
-    return GestureDetector(
-      onTap: onTapRoute,
-      child: Container(
-        margin: EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 50),
-        child: Card(
-          elevation: 10,
-          color: Colors.white,
-          child: Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              Column(
+    return FutureBuilder(
+      future: _pagesFuture,
+      builder: (BuildContext context, AsyncSnapshot<int> numberOfPages) {
+        if (numberOfPages.hasData) {
+          return GestureDetector(
+            onTap: onTapRoute,
+            child: Container(
+              margin: EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 50),
+              child: Card(
+                elevation: 10,
+                color: Colors.white,
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    Column(
+                      children: [
+                        imageSection,
+                        Container(
+                          margin: EdgeInsets.only(left: 20, right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              numberOfPagesContainer(
+                                  numberOfPages.data.toString()),
+                              titleSection,
+                              visibilityIcon(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            margin: EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 50),
+            child: Card(
+              elevation: 10,
+              color: Colors.white,
+              child: Column(
                 children: [
                   imageSection,
                   Container(
@@ -171,18 +195,19 @@ class _DiaryListCardState extends State<DiaryListCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        numberOfPages(),
-                        titleSection,
-                        visibilityIcon(),
+                        Container(
+                          padding: EdgeInsets.all(20),
+                          child: MyCircularProgressIndicator(),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        }
+      },
     );
   }
 }
