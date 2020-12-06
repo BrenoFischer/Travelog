@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:travelog/classes/diary.dart';
+import 'package:travelog/screens/pre_diary_reading_first.dart';
 import 'package:travelog/screens/reading_page.dart';
 import 'package:travelog/components/round_button.dart';
+import 'package:travelog/screens/welcome.dart';
 import 'package:travelog/ui/constants.dart';
 import 'package:travelog/ui/size_styling.dart';
 
@@ -21,7 +23,15 @@ class ReadingDiaryFirstScreen extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: GestureDetector(
         onTap: () {
-          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return PreReadingDiaryFirstScreen(
+                uid: diary.userId,
+                diary: diary,
+              );
+            }),
+          );
         },
         child: Icon(
           Icons.arrow_back_ios,

@@ -12,6 +12,7 @@ import 'package:travelog/components/progress_indicator.dart';
 import 'package:travelog/components/round_button.dart';
 import 'package:travelog/screens/new_page.dart';
 import 'package:travelog/screens/reading_diary_first.dart';
+import 'package:travelog/screens/welcome.dart';
 import 'package:travelog/services/database.dart';
 import 'package:travelog/ui/constants.dart';
 import 'package:travelog/ui/diary_page_paint.dart';
@@ -205,7 +206,12 @@ class PreDiaryLayout extends GetWidget<AuthController> {
                 left: 20,
                 child: GestureDetector(
                   onTap: () {
-                    Get.back();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return WelcomeScreen();
+                      }),
+                    );
                   },
                   child: Icon(
                     Icons.arrow_back_ios,

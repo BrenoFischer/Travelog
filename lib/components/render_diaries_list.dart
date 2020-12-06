@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:travelog/controllers/auth_controller.dart';
 import 'package:travelog/classes/diary.dart';
 import 'package:travelog/components/diary_list_card.dart';
 
-class RenderDiariesListCards extends GetWidget<AuthController> {
+class RenderDiariesListCards extends StatelessWidget {
   RenderDiariesListCards({this.diaries, this.explore});
   final bool explore;
   final List<Diary> diaries;

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:travelog/classes/my_user.dart';
 import 'package:travelog/components/my_snackbar.dart';
+import 'package:travelog/screens/login.dart';
 import 'package:travelog/services/database.dart';
 import 'package:travelog/controllers/user_controller.dart';
 
@@ -56,6 +57,7 @@ class AuthController extends GetxController {
     try {
       await _auth.signOut();
       Get.find<UserController>().clear();
+      Get.to(Login());
     } catch (e) {
       MySnackbar.callSnackbar(
         "Erro ao sair",

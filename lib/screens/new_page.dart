@@ -119,7 +119,6 @@ class _NewPageScreenState extends State<NewPageScreen> {
         language: "pt_BR",
       );
       if (prediction != null) {
-        print(prediction.description);
         _getLatLngFromPrediction(prediction);
       }
     }
