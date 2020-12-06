@@ -68,6 +68,7 @@ flutter:
     - assets/images/passaport.png
     - assets/images/defaultBanner.png
     - assets/images/case.jpg
+    - assets/images/profileDefault.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

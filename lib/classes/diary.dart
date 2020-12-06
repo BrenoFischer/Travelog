@@ -49,7 +49,7 @@ class Diary {
 
   Image getBanner() {
     Image thisBanner;
-    this.banner[0] == 'a'
+    this.banner == "assets/images/defaultBanner.png"
         ? thisBanner = Image.asset(
             this.banner,
             fit: BoxFit.fill,
