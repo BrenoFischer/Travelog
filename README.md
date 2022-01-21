@@ -1,16 +1,36 @@
-# travelog
+# Travelog
 
-A new Flutter project.
+![Travelog logo](/readme_imgs/travelog-logo.png "Travelog logo")
 
-## Getting Started
+## Introduction
+Your travel diary anywhere you want it to be!</br>
+Travelog is a digital diary that you can register the lived experiences, preserving the creative way of personal diaries, allied with the facilities of a smartphone. On a community environment you can see other diaries and get inspired by other stories, cultures, ways of traveling and experiecing life.
 
-This project is a starting point for a Flutter application.
+## Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+This is a college work and it's not currently on app stores.</br>
+It's a Android App, built with Flutter.</br>
+You'll need:
+- [Flutter installed](https://docs.flutter.dev/get-started/install)
+- [Android Studio installed](https://developer.android.com/studio)
+- [Get an Android API Key, for google maps](https://developers.google.com/maps/documentation/android-sdk/get-api-key)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Installation
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Clone this repository. [More information on how to clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+- On terminal, run flutter pub get
+- Insert the Google maps API key on Travelog/android/local.properties, like: MAPS_API_KEY=your_key 
+
+Now you can run the app in the [way you prefer](https://docs.flutter.dev/get-started/test-drive).
+
+## Screenshots
+
+### Login Screen
+![Login screen](/readme_imgs/tela-login.png)
+
+### Sign up Screen
+
+![Sign up screen](/readme_imgs/tela-signup.png)
+
+
+
