@@ -32,5 +32,18 @@ Now you can run the app in the [way you prefer](https://docs.flutter.dev/get-sta
 
 ![Sign up screen](/readme_imgs/tela-signup.png)
 
+### Diary Screens
 
+![Diary screens](/readme_imgs/tela-diario.png)
 
+### New Diary Screen
+
+![New diary screen](/readme_imgs/tela-novo_diario.png)
+
+### New Page Screen
+
+![New page screen](/readme_imgs/tela-nova_pagina.png)
+
+### Reading a Diary Screens
+
+![Reading a diary screens](/readme_imgs/tela-lendo_diario.png)
